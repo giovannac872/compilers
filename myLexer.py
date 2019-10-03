@@ -1,114 +1,169 @@
-#!/usr/bin/python
-
-from ply import *
+import ply.lex as lex
 
 
-''''
-palavras reservadas cafezinho 
-programa, car, int, retorne, leia, escreve, novalinha, se, entao, senao, enquanto, execute
-
-'''
-
-reservadas = {
-    'programa' : 'PROGRAMA',
-    'car': 'CAR',
-    'int': 'INT',
-    'leia': 'LEIA',
-    'escreva': 'ESCREVA',
-    'novalinha': 'NOVALINHA',
-    'se': 'SE',
-    'entao': 'ENTAO',
-    'senao': 'SENAO',
-    'enquanto': 'ENQUANTO',
-    'execute': 'EXECUTE',
-    'e': 'E',
-    'ou': 'OU',
-    'retorne': 'RETORNE'
+palavrasReservadas = {
+        'programa' : 'PROGRAMA',
+        'car': 'CARACTERE',
+        'int': 'INTEIRO',
+        'retorne': 'RETORNE',
+        'leia': 'LEIA',
+        'escreva': 'ESCREVA',
+        'novalinha': 'NOVALINHA',
+        'se': 'SE',
+        'entao': 'ENTAO',
+        'senao': 'SENAO',
+        'enquanto': 'ENQUANTO',
+        'execute': 'EXECUTE',
+        'e': 'OPERADORLOGICOE',
+        'ou': 'OPERADORLOGICOOU'
+        
 }
 
-tokens = ('PONTOEVIRGULA', 'VIRGULA', 'ABRECOLCHETE', 'FECHACOLCHETE', 'ABREPARENTESES', 'FECHAPARENTESES', 'ABRECHAVES',
-         'FECHACHAVES', 'ASPAS', 'ATRIBUICAO', 'OPERADORTERNARIO', 'DOISPONTOS', 'COMPARADORIGUAL', 'COMPARADORDIFERENTE',
-         'COMPARADORMENOR', 'COMPARADORMAIOR', 'COMPARADORMAIOROUIGUAL', 'COMPARADORMENOROUIGUAL', 'OPERADORMAIS',
-         'OPERADORMENOS', 'OPERADORVEZES', 'OPERADORDIVISAO', 'OPERADORRESTODIVISAO', 'OPERADORNEGACAO',
-         'OPERADORLOGICOOU', 'OPERADORLOGICOE', 'DEFID', 'DEFINTEIRO', 'DEFCADEIACARACTERES',
-         'DEFCARACTERE') #+ list(reservadas.items)
 
-'''
-tokens e simbolos cafezinho
-; [] , () {} = ? : == != < > >= <= + - * / %  ! ou e " 
-programa car int leia escreve novalinha se entao senao enquanto execute
-'''
+tokens = [
+    'OPERADORSOMA',
+    'OPERADORSUBTRACAO',
+    'OPERADORVEZES',
+    'OPERADORDIVISAO',
+    'ABREPARENTESES',
+    'FECHAPARENTESES',
+    'ATRIBUICAO',
+    'IDENTIFICADOR',
+    'CADEIACARACTERE',
+    'PONTOEVIRGULA',
+    'ABRECOLCHETE',
+    'FECHACOLCHETE',
+    'VIRGULA',
+    'ASPAS',
+    'COMPARACAOMAIOR',
+    'COMPARACAOMENOR',
+    'ABRECHAVES',
+    'FECHACHAVES',
+    'OPERADORTERNARIO',
+    'DOISPONTOS',
+    'COMPARACAOIGUAL',
+    'COMPARACAODIFERENTE',
+    'COMPARACAOMAIOROUIGUAL',
+    'COMPARACAOMENOROUIGUAL',
+    'OPERADORNEGACAO',
+    'COMENTARIOUMALINHA',
+    'COMENTARIOMAISUMALINHA',
+    'INTEIROCONSTANTE',
+    'CARACTERECONSTANTE',
+    'OPERADORRESTODIVISAO'
+] + list(palavrasReservadas.values())
 
-t_PONTOEVIRGULA = r'\;'
-t_VIRGULA = r'\,'
-t_ABRECOLCHETE = r'\]'
-t_FECHACOLCHETE = r'\['
+
+t_OPERADORRESTODIVISAO = r'%'
+t_OPERADORSOMA = r'\+'
+t_OPERADORSUBTRACAO = r'\-'
+t_OPERADORVEZES = r'\*'
+t_OPERADORDIVISAO = r'/'
+t_OPERADORTERNARIO = r'\?'
+t_OPERADORNEGACAO = r'!'
 t_ABREPARENTESES = r'\('
 t_FECHAPARENTESES = r'\)'
+t_ATRIBUICAO = r'\='
+t_PONTOEVIRGULA = r';'
+t_ABRECOLCHETE = r'\['
+t_FECHACOLCHETE = r'\]'
+t_VIRGULA = r','
+t_ASPAS = r'"'
 t_ABRECHAVES = r'\{'
 t_FECHACHAVES = r'\}'
-t_ASPAS = r'\"'
-
-
-t_ATRIBUICAO = r'='
-t_OPERADORTERNARIO = r'\?'
 t_DOISPONTOS = r':'
-
-t_COMPARADORIGUAL = r'=='
-t_COMPARADORDIFERENTE = r'!='
-t_COMPARADORMENOR = r'<'
-t_COMPARADORMAIOR = r'>'
-t_COMPARADORMAIOROUIGUAL = r'>='
-t_COMPARADORMENOROUIGUAL = r'<='
-
-t_OPERADORMAIS = r'\+'
-t_OPERADORMENOS = r'\-'
-t_OPERADORVEZES = r'\*'
-t_OPERADORDIVISAO = r'\/'
-t_OPERADORRESTODIVISAO = r'\%'
-t_OPERADORNEGACAO = r'\!'
-
-t_OPERADORLOGICOOOU = r'ou'
-t_OPERADORLOGICOE = r'e'
+t_COMPARACAOIGUAL = r'\=\='
+t_COMPARACAODIFERENTE = r'!='
+t_COMPARACAOMAIOR = r'>'
+t_COMPARACAOMENOR = r'<'
+t_COMPARACAOMAIOROUIGUAL = r'>='
+t_COMPARACAOMENOROUIGUAL = r'<='
 
 '''
 t_PROGRAMA = r'programa'
-t_CAR = r'car'
-t_INTEIRO = r'int'
+t_RETORNE = r'retorne'
 t_LEIA = r'leia'
 t_ESCREVA = r'escreva'
-t_NOVALINHA = r'novalinha'
 t_SE = r'se'
 t_ENTAO = r'entao'
 t_SENAO = r'senao'
 t_ENQUANTO = r'enquanto'
 t_EXECUTE = r'execute'
-t_RETORNE = r'retorne'
+t_OPERADORLOGICOOU = r'ou'
+t_OPERADORLOGICOE = r'e'
 '''
-def t_DEFID(t):
-    r'[a-zA-z][a-zA-z_0-9]*'
-    if t.value in reservadas:
-        t.type = reservadas[t.value]
-    return t
 
-#\d+ 1 digito ou mais
-def t_DEFINTEIRO(t):
+def t_INTEIROCONSTANTE(t):
     r'\d+'
     t.value = int(t.value)
     return t
 
-def t_DEFCADEIACARACTERES(t):
-    r'\"([^\\\n]|(\\.))*\"'
+def t_NOVALINHA(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+t_ignore = ' \t'
+
+
+def t_IDENTIFICADOR(t):
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    if t.value in palavrasReservadas:# teste de palavras reservadas
+        t.type = palavrasReservadas[str(t.value)]
+#	print(t)
     return t
 
-def t_DEFCARACTERE(t):
-    r'\'([^\\\n]|(\\.))\''
+
+def t_CADEIACARACTERE(t):
+    r'\"[^\"]*\"'
+    
+    if t.value.find("\n") != -1:
+        print("Erro:Cadeia de caractere ocupa mais de uma linha, linha:%d" % t.lexer.lineno)
+    
     return t
 
+def t_CARACTERECONSTANTE(t):
+    r"\'.\'"
+    return t
 
-if __name__ == '__main__':
-    lexer = lex.lex()
-    lexer.input("3 + 4")
-    lexer.token()
+def t_COMENTARIOUMALINHA(t):
+    r'//.*'
+    t.lexer.lineno += 1
+    pass 
 
+def t_COMENTARIOMAISUMALINHA(t):
+    r'(/\*[^(\*/)]*(\*/)?)'
+    #print(t)
+    if t.value[len(t.value)-1] != '/' and t.value[len(t.value)-2] != '*':
+        print("Erro:Comentario nao termina, linha: %d" % t.lexer.lineno)
+        exit()
+    t.lexer.lineno += t.value.count('\n')
+    pass
 
+def t_error(t):
+    print("Erro:Caractere invalido " +  "'" + t.value[0] + "'" + "linha " + str(t.lexer.lineno))
+    exit() 
+
+'''
+def t_EMPTYSPACE(t):
+    r'\s'
+    return t
+
+'''
+
+lexer = lex.lex()
+'''
+arquivo = open("entrada.txt","r").read()
+
+lexer.input(arquivo)
+#arquivo.close()
+
+#print(palavrasReservadas['programa'])
+#teste = "programa"
+#print(palavrasReservadas[teste])
+
+while True:
+    tok = lexer.token()
+    if not tok:
+        break
+    print(tok)
+'''

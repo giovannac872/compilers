@@ -1,0 +1,3747 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ASPAS
+    COMENTARIOUMALINHA
+    COMENTARIOMAISUMALINHA
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> declfuncvar declprog
+Rule 2     declfuncvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA declfuncvar
+Rule 3     declfuncvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA declfuncvar
+Rule 4     declfuncvar -> tipo IDENTIFICADOR declfunc declfuncvar
+Rule 5     declfuncvar -> <empty>
+Rule 6     declprog -> PROGRAMA bloco
+Rule 7     declvar -> VIRGULA IDENTIFICADOR declvar
+Rule 8     declvar -> VIRGULA IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar
+Rule 9     declvar -> <empty>
+Rule 10    declfunc -> ABREPARENTESES listaparametros FECHAPARENTESES bloco
+Rule 11    listaparametros -> <empty>
+Rule 12    listaparametros -> listaparametroscont
+Rule 13    listaparametroscont -> tipo IDENTIFICADOR
+Rule 14    listaparametroscont -> tipo IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE
+Rule 15    listaparametroscont -> tipo IDENTIFICADOR VIRGULA listaparametroscont
+Rule 16    listaparametroscont -> tipo IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE VIRGULA listaparametroscont
+Rule 17    bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES
+Rule 18    bloco -> ABRECHAVES listadeclvar FECHACHAVES
+Rule 19    listadeclvar -> <empty>
+Rule 20    listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar
+Rule 21    listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar
+Rule 22    tipo -> INTEIRO
+Rule 23    tipo -> CARACTERE
+Rule 24    listacomando -> comando
+Rule 25    listacomando -> comando listacomando
+Rule 26    comando -> PONTOEVIRGULA
+Rule 27    comando -> expr PONTOEVIRGULA
+Rule 28    comando -> RETORNE expr PONTOEVIRGULA
+Rule 29    comando -> LEIA lvalueexpr PONTOEVIRGULA
+Rule 30    comando -> ESCREVA expr PONTOEVIRGULA
+Rule 31    comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA
+Rule 32    comando -> NOVALINHA PONTOEVIRGULA
+Rule 33    comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando
+Rule 34    comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando
+Rule 35    comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando
+Rule 36    comando -> bloco
+Rule 37    expr -> assignexpr
+Rule 38    assignexpr -> condexpr
+Rule 39    assignexpr -> lvalueexpr ATRIBUICAO assignexpr
+Rule 40    condexpr -> orexpr
+Rule 41    condexpr -> orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+Rule 42    orexpr -> orexpr OPERADORLOGICOOU andexpr
+Rule 43    orexpr -> andexpr
+Rule 44    andexpr -> andexpr OPERADORLOGICOE eqexpr
+Rule 45    andexpr -> eqexpr
+Rule 46    eqexpr -> eqexpr COMPARACAOIGUAL desigexpr
+Rule 47    eqexpr -> eqexpr COMPARACAODIFERENTE desigexpr
+Rule 48    eqexpr -> desigexpr
+Rule 49    desigexpr -> desigexpr COMPARACAOMENOR addexpr
+Rule 50    desigexpr -> desigexpr COMPARACAOMAIOR addexpr
+Rule 51    desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr
+Rule 52    desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr
+Rule 53    desigexpr -> addexpr
+Rule 54    addexpr -> addexpr OPERADORSOMA mulexpr
+Rule 55    addexpr -> addexpr OPERADORSUBTRACAO mulexpr
+Rule 56    addexpr -> mulexpr
+Rule 57    mulexpr -> mulexpr OPERADORVEZES unexpr
+Rule 58    mulexpr -> mulexpr OPERADORDIVISAO unexpr
+Rule 59    mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr
+Rule 60    mulexpr -> unexpr
+Rule 61    unexpr -> OPERADORSUBTRACAO primexpr
+Rule 62    unexpr -> OPERADORNEGACAO primexpr
+Rule 63    unexpr -> primexpr
+Rule 64    lvalueexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+Rule 65    lvalueexpr -> IDENTIFICADOR
+Rule 66    primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+Rule 67    primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+Rule 68    primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+Rule 69    primexpr -> IDENTIFICADOR
+Rule 70    primexpr -> CARACTERECONSTANTE
+Rule 71    primexpr -> INTEIROCONSTANTE
+Rule 72    primexpr -> ABREPARENTESES expr FECHAPARENTESES
+Rule 73    listexpr -> assignexpr
+Rule 74    listexpr -> listexpr VIRGULA assignexpr
+
+Terminals, with rules where they appear
+
+ABRECHAVES           : 17 18
+ABRECOLCHETE         : 3 8 14 16 21 64 68
+ABREPARENTESES       : 10 33 34 35 66 67 72
+ASPAS                : 
+ATRIBUICAO           : 39
+CADEIACARACTERE      : 31
+CARACTERE            : 23
+CARACTERECONSTANTE   : 70
+COMENTARIOMAISUMALINHA : 
+COMENTARIOUMALINHA   : 
+COMPARACAODIFERENTE  : 47
+COMPARACAOIGUAL      : 46
+COMPARACAOMAIOR      : 50
+COMPARACAOMAIOROUIGUAL : 51
+COMPARACAOMENOR      : 49
+COMPARACAOMENOROUIGUAL : 52
+DOISPONTOS           : 41
+ENQUANTO             : 35
+ENTAO                : 33 34
+ESCREVA              : 30 31
+EXECUTE              : 35
+FECHACHAVES          : 17 18
+FECHACOLCHETE        : 3 8 14 16 21 64 68
+FECHAPARENTESES      : 10 33 34 35 66 67 72
+IDENTIFICADOR        : 2 3 4 7 8 13 14 15 16 20 21 64 65 66 67 68 69
+INTEIRO              : 22
+INTEIROCONSTANTE     : 3 8 21 71
+LEIA                 : 29
+NOVALINHA            : 32
+OPERADORDIVISAO      : 58
+OPERADORLOGICOE      : 44
+OPERADORLOGICOOU     : 42
+OPERADORNEGACAO      : 62
+OPERADORRESTODIVISAO : 59
+OPERADORSOMA         : 54
+OPERADORSUBTRACAO    : 55 61
+OPERADORTERNARIO     : 41
+OPERADORVEZES        : 57
+PONTOEVIRGULA        : 2 3 20 21 26 27 28 29 30 31 32
+PROGRAMA             : 6
+RETORNE              : 28
+SE                   : 33 34
+SENAO                : 34
+VIRGULA              : 7 8 15 16 74
+error                : 
+
+Nonterminals, with rules where they appear
+
+addexpr              : 49 50 51 52 53 54 55
+andexpr              : 42 43 44
+assignexpr           : 37 39 73 74
+bloco                : 6 10 36
+comando              : 24 25 33 34 34 35
+condexpr             : 38 41
+declfunc             : 4
+declfuncvar          : 1 2 3 4
+declprog             : 1
+declvar              : 2 3 7 8 20 21
+desigexpr            : 46 47 48 49 50 51 52
+eqexpr               : 44 45 46 47
+expr                 : 27 28 30 33 34 35 41 64 68 72
+listacomando         : 17 25
+listadeclvar         : 17 18 20 21
+listaparametros      : 10
+listaparametroscont  : 12 15 16
+listexpr             : 66 74
+lvalueexpr           : 29 39
+mulexpr              : 54 55 56 57 58 59
+orexpr               : 40 41 42
+primexpr             : 61 62 63
+programa             : 0
+tipo                 : 2 3 4 13 14 15 16 20 21
+unexpr               : 57 58 59 60
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . declfuncvar declprog
+    (2) declfuncvar -> . tipo IDENTIFICADOR declvar PONTOEVIRGULA declfuncvar
+    (3) declfuncvar -> . tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA declfuncvar
+    (4) declfuncvar -> . tipo IDENTIFICADOR declfunc declfuncvar
+    (5) declfuncvar -> .
+    (22) tipo -> . INTEIRO
+    (23) tipo -> . CARACTERE
+
+    PROGRAMA        reduce using rule 5 (declfuncvar -> .)
+    INTEIRO         shift and go to state 2
+    CARACTERE       shift and go to state 4
+
+    tipo                           shift and go to state 1
+    programa                       shift and go to state 3
+    declfuncvar                    shift and go to state 5
+
+state 1
+
+    (2) declfuncvar -> tipo . IDENTIFICADOR declvar PONTOEVIRGULA declfuncvar
+    (3) declfuncvar -> tipo . IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA declfuncvar
+    (4) declfuncvar -> tipo . IDENTIFICADOR declfunc declfuncvar
+
+    IDENTIFICADOR   shift and go to state 6
+
+
+state 2
+
+    (22) tipo -> INTEIRO .
+
+    IDENTIFICADOR   reduce using rule 22 (tipo -> INTEIRO .)
+
+
+state 3
+
+    (0) S' -> programa .
+
+
+
+state 4
+
+    (23) tipo -> CARACTERE .
+
+    IDENTIFICADOR   reduce using rule 23 (tipo -> CARACTERE .)
+
+
+state 5
+
+    (1) programa -> declfuncvar . declprog
+    (6) declprog -> . PROGRAMA bloco
+
+    PROGRAMA        shift and go to state 8
+
+    declprog                       shift and go to state 7
+
+state 6
+
+    (2) declfuncvar -> tipo IDENTIFICADOR . declvar PONTOEVIRGULA declfuncvar
+    (3) declfuncvar -> tipo IDENTIFICADOR . ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA declfuncvar
+    (4) declfuncvar -> tipo IDENTIFICADOR . declfunc declfuncvar
+    (7) declvar -> . VIRGULA IDENTIFICADOR declvar
+    (8) declvar -> . VIRGULA IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar
+    (9) declvar -> .
+    (10) declfunc -> . ABREPARENTESES listaparametros FECHAPARENTESES bloco
+
+    ABRECOLCHETE    shift and go to state 12
+    VIRGULA         shift and go to state 11
+    PONTOEVIRGULA   reduce using rule 9 (declvar -> .)
+    ABREPARENTESES  shift and go to state 13
+
+    declfunc                       shift and go to state 10
+    declvar                        shift and go to state 9
+
+state 7
+
+    (1) programa -> declfuncvar declprog .
+
+    $end            reduce using rule 1 (programa -> declfuncvar declprog .)
+
+
+state 8
+
+    (6) declprog -> PROGRAMA . bloco
+    (17) bloco -> . ABRECHAVES listadeclvar listacomando FECHACHAVES
+    (18) bloco -> . ABRECHAVES listadeclvar FECHACHAVES
+
+    ABRECHAVES      shift and go to state 14
+
+    bloco                          shift and go to state 15
+
+state 9
+
+    (2) declfuncvar -> tipo IDENTIFICADOR declvar . PONTOEVIRGULA declfuncvar
+
+    PONTOEVIRGULA   shift and go to state 16
+
+
+state 10
+
+    (4) declfuncvar -> tipo IDENTIFICADOR declfunc . declfuncvar
+    (2) declfuncvar -> . tipo IDENTIFICADOR declvar PONTOEVIRGULA declfuncvar
+    (3) declfuncvar -> . tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA declfuncvar
+    (4) declfuncvar -> . tipo IDENTIFICADOR declfunc declfuncvar
+    (5) declfuncvar -> .
+    (22) tipo -> . INTEIRO
+    (23) tipo -> . CARACTERE
+
+    PROGRAMA        reduce using rule 5 (declfuncvar -> .)
+    INTEIRO         shift and go to state 2
+    CARACTERE       shift and go to state 4
+
+    tipo                           shift and go to state 1
+    declfuncvar                    shift and go to state 17
+
+state 11
+
+    (7) declvar -> VIRGULA . IDENTIFICADOR declvar
+    (8) declvar -> VIRGULA . IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar
+
+    IDENTIFICADOR   shift and go to state 18
+
+
+state 12
+
+    (3) declfuncvar -> tipo IDENTIFICADOR ABRECOLCHETE . INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA declfuncvar
+
+    INTEIROCONSTANTE shift and go to state 19
+
+
+state 13
+
+    (10) declfunc -> ABREPARENTESES . listaparametros FECHAPARENTESES bloco
+    (11) listaparametros -> .
+    (12) listaparametros -> . listaparametroscont
+    (13) listaparametroscont -> . tipo IDENTIFICADOR
+    (14) listaparametroscont -> . tipo IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE
+    (15) listaparametroscont -> . tipo IDENTIFICADOR VIRGULA listaparametroscont
+    (16) listaparametroscont -> . tipo IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE VIRGULA listaparametroscont
+    (22) tipo -> . INTEIRO
+    (23) tipo -> . CARACTERE
+
+    FECHAPARENTESES reduce using rule 11 (listaparametros -> .)
+    INTEIRO         shift and go to state 2
+    CARACTERE       shift and go to state 4
+
+    tipo                           shift and go to state 20
+    listaparametroscont            shift and go to state 21
+    listaparametros                shift and go to state 22
+
+state 14
+
+    (17) bloco -> ABRECHAVES . listadeclvar listacomando FECHACHAVES
+    (18) bloco -> ABRECHAVES . listadeclvar FECHACHAVES
+    (19) listadeclvar -> .
+    (20) listadeclvar -> . tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar
+    (21) listadeclvar -> . tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar
+    (22) tipo -> . INTEIRO
+    (23) tipo -> . CARACTERE
+
+    FECHACHAVES     reduce using rule 19 (listadeclvar -> .)
+    PONTOEVIRGULA   reduce using rule 19 (listadeclvar -> .)
+    RETORNE         reduce using rule 19 (listadeclvar -> .)
+    LEIA            reduce using rule 19 (listadeclvar -> .)
+    ESCREVA         reduce using rule 19 (listadeclvar -> .)
+    NOVALINHA       reduce using rule 19 (listadeclvar -> .)
+    SE              reduce using rule 19 (listadeclvar -> .)
+    ENQUANTO        reduce using rule 19 (listadeclvar -> .)
+    ABRECHAVES      reduce using rule 19 (listadeclvar -> .)
+    IDENTIFICADOR   reduce using rule 19 (listadeclvar -> .)
+    OPERADORSUBTRACAO reduce using rule 19 (listadeclvar -> .)
+    OPERADORNEGACAO reduce using rule 19 (listadeclvar -> .)
+    CARACTERECONSTANTE reduce using rule 19 (listadeclvar -> .)
+    INTEIROCONSTANTE reduce using rule 19 (listadeclvar -> .)
+    ABREPARENTESES  reduce using rule 19 (listadeclvar -> .)
+    INTEIRO         shift and go to state 2
+    CARACTERE       shift and go to state 4
+
+    tipo                           shift and go to state 23
+    listadeclvar                   shift and go to state 24
+
+state 15
+
+    (6) declprog -> PROGRAMA bloco .
+
+    $end            reduce using rule 6 (declprog -> PROGRAMA bloco .)
+
+
+state 16
+
+    (2) declfuncvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA . declfuncvar
+    (2) declfuncvar -> . tipo IDENTIFICADOR declvar PONTOEVIRGULA declfuncvar
+    (3) declfuncvar -> . tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA declfuncvar
+    (4) declfuncvar -> . tipo IDENTIFICADOR declfunc declfuncvar
+    (5) declfuncvar -> .
+    (22) tipo -> . INTEIRO
+    (23) tipo -> . CARACTERE
+
+    PROGRAMA        reduce using rule 5 (declfuncvar -> .)
+    INTEIRO         shift and go to state 2
+    CARACTERE       shift and go to state 4
+
+    tipo                           shift and go to state 1
+    declfuncvar                    shift and go to state 25
+
+state 17
+
+    (4) declfuncvar -> tipo IDENTIFICADOR declfunc declfuncvar .
+
+    PROGRAMA        reduce using rule 4 (declfuncvar -> tipo IDENTIFICADOR declfunc declfuncvar .)
+
+
+state 18
+
+    (7) declvar -> VIRGULA IDENTIFICADOR . declvar
+    (8) declvar -> VIRGULA IDENTIFICADOR . ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar
+    (7) declvar -> . VIRGULA IDENTIFICADOR declvar
+    (8) declvar -> . VIRGULA IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar
+    (9) declvar -> .
+
+    ABRECOLCHETE    shift and go to state 27
+    VIRGULA         shift and go to state 11
+    PONTOEVIRGULA   reduce using rule 9 (declvar -> .)
+
+    declvar                        shift and go to state 26
+
+state 19
+
+    (3) declfuncvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE . FECHACOLCHETE declvar PONTOEVIRGULA declfuncvar
+
+    FECHACOLCHETE   shift and go to state 28
+
+
+state 20
+
+    (13) listaparametroscont -> tipo . IDENTIFICADOR
+    (14) listaparametroscont -> tipo . IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE
+    (15) listaparametroscont -> tipo . IDENTIFICADOR VIRGULA listaparametroscont
+    (16) listaparametroscont -> tipo . IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE VIRGULA listaparametroscont
+
+    IDENTIFICADOR   shift and go to state 29
+
+
+state 21
+
+    (12) listaparametros -> listaparametroscont .
+
+    FECHAPARENTESES reduce using rule 12 (listaparametros -> listaparametroscont .)
+
+
+state 22
+
+    (10) declfunc -> ABREPARENTESES listaparametros . FECHAPARENTESES bloco
+
+    FECHAPARENTESES shift and go to state 30
+
+
+state 23
+
+    (20) listadeclvar -> tipo . IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar
+    (21) listadeclvar -> tipo . IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar
+
+    IDENTIFICADOR   shift and go to state 31
+
+
+state 24
+
+    (17) bloco -> ABRECHAVES listadeclvar . listacomando FECHACHAVES
+    (18) bloco -> ABRECHAVES listadeclvar . FECHACHAVES
+    (24) listacomando -> . comando
+    (25) listacomando -> . comando listacomando
+    (26) comando -> . PONTOEVIRGULA
+    (27) comando -> . expr PONTOEVIRGULA
+    (28) comando -> . RETORNE expr PONTOEVIRGULA
+    (29) comando -> . LEIA lvalueexpr PONTOEVIRGULA
+    (30) comando -> . ESCREVA expr PONTOEVIRGULA
+    (31) comando -> . ESCREVA CADEIACARACTERE PONTOEVIRGULA
+    (32) comando -> . NOVALINHA PONTOEVIRGULA
+    (33) comando -> . SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando
+    (34) comando -> . SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando
+    (35) comando -> . ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando
+    (36) comando -> . bloco
+    (37) expr -> . assignexpr
+    (17) bloco -> . ABRECHAVES listadeclvar listacomando FECHACHAVES
+    (18) bloco -> . ABRECHAVES listadeclvar FECHACHAVES
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    FECHACHAVES     shift and go to state 42
+    PONTOEVIRGULA   shift and go to state 46
+    RETORNE         shift and go to state 48
+    LEIA            shift and go to state 49
+    ESCREVA         shift and go to state 55
+    NOVALINHA       shift and go to state 39
+    SE              shift and go to state 40
+    ENQUANTO        shift and go to state 33
+    ABRECHAVES      shift and go to state 14
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 54
+    bloco                          shift and go to state 38
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    unexpr                         shift and go to state 57
+    expr                           shift and go to state 58
+    addexpr                        shift and go to state 47
+    listacomando                   shift and go to state 59
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    comando                        shift and go to state 50
+    desigexpr                      shift and go to state 53
+
+state 25
+
+    (2) declfuncvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA declfuncvar .
+
+    PROGRAMA        reduce using rule 2 (declfuncvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA declfuncvar .)
+
+
+state 26
+
+    (7) declvar -> VIRGULA IDENTIFICADOR declvar .
+
+    PONTOEVIRGULA   reduce using rule 7 (declvar -> VIRGULA IDENTIFICADOR declvar .)
+
+
+state 27
+
+    (8) declvar -> VIRGULA IDENTIFICADOR ABRECOLCHETE . INTEIROCONSTANTE FECHACOLCHETE declvar
+
+    INTEIROCONSTANTE shift and go to state 61
+
+
+state 28
+
+    (3) declfuncvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE . declvar PONTOEVIRGULA declfuncvar
+    (7) declvar -> . VIRGULA IDENTIFICADOR declvar
+    (8) declvar -> . VIRGULA IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar
+    (9) declvar -> .
+
+    VIRGULA         shift and go to state 11
+    PONTOEVIRGULA   reduce using rule 9 (declvar -> .)
+
+    declvar                        shift and go to state 62
+
+state 29
+
+    (13) listaparametroscont -> tipo IDENTIFICADOR .
+    (14) listaparametroscont -> tipo IDENTIFICADOR . ABRECOLCHETE FECHACOLCHETE
+    (15) listaparametroscont -> tipo IDENTIFICADOR . VIRGULA listaparametroscont
+    (16) listaparametroscont -> tipo IDENTIFICADOR . ABRECOLCHETE FECHACOLCHETE VIRGULA listaparametroscont
+
+    FECHAPARENTESES reduce using rule 13 (listaparametroscont -> tipo IDENTIFICADOR .)
+    ABRECOLCHETE    shift and go to state 64
+    VIRGULA         shift and go to state 63
+
+
+state 30
+
+    (10) declfunc -> ABREPARENTESES listaparametros FECHAPARENTESES . bloco
+    (17) bloco -> . ABRECHAVES listadeclvar listacomando FECHACHAVES
+    (18) bloco -> . ABRECHAVES listadeclvar FECHACHAVES
+
+    ABRECHAVES      shift and go to state 14
+
+    bloco                          shift and go to state 65
+
+state 31
+
+    (20) listadeclvar -> tipo IDENTIFICADOR . declvar PONTOEVIRGULA listadeclvar
+    (21) listadeclvar -> tipo IDENTIFICADOR . ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar
+    (7) declvar -> . VIRGULA IDENTIFICADOR declvar
+    (8) declvar -> . VIRGULA IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar
+    (9) declvar -> .
+
+    ABRECOLCHETE    shift and go to state 67
+    VIRGULA         shift and go to state 11
+    PONTOEVIRGULA   reduce using rule 9 (declvar -> .)
+
+    declvar                        shift and go to state 66
+
+state 32
+
+    (39) assignexpr -> lvalueexpr . ATRIBUICAO assignexpr
+
+    ATRIBUICAO      shift and go to state 68
+
+
+state 33
+
+    (35) comando -> ENQUANTO . ABREPARENTESES expr FECHAPARENTESES EXECUTE comando
+
+    ABREPARENTESES  shift and go to state 69
+
+
+state 34
+
+    (62) unexpr -> OPERADORNEGACAO . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    primexpr                       shift and go to state 71
+
+state 35
+
+    (70) primexpr -> CARACTERECONSTANTE .
+
+    OPERADORVEZES   reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    OPERADORDIVISAO reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    OPERADORRESTODIVISAO reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    OPERADORSOMA    reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    OPERADORSUBTRACAO reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    COMPARACAOMENOR reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    COMPARACAOMAIOR reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    COMPARACAOMENOROUIGUAL reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    COMPARACAOIGUAL reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    COMPARACAODIFERENTE reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    OPERADORLOGICOE reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    OPERADORTERNARIO reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    OPERADORLOGICOOU reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    FECHAPARENTESES reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    PONTOEVIRGULA   reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    FECHACOLCHETE   reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    VIRGULA         reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+    DOISPONTOS      reduce using rule 70 (primexpr -> CARACTERECONSTANTE .)
+
+
+state 36
+
+    (43) orexpr -> andexpr .
+    (44) andexpr -> andexpr . OPERADORLOGICOE eqexpr
+
+    OPERADORTERNARIO reduce using rule 43 (orexpr -> andexpr .)
+    OPERADORLOGICOOU reduce using rule 43 (orexpr -> andexpr .)
+    FECHACOLCHETE   reduce using rule 43 (orexpr -> andexpr .)
+    PONTOEVIRGULA   reduce using rule 43 (orexpr -> andexpr .)
+    FECHAPARENTESES reduce using rule 43 (orexpr -> andexpr .)
+    VIRGULA         reduce using rule 43 (orexpr -> andexpr .)
+    DOISPONTOS      reduce using rule 43 (orexpr -> andexpr .)
+    OPERADORLOGICOE shift and go to state 72
+
+
+state 37
+
+    (45) andexpr -> eqexpr .
+    (46) eqexpr -> eqexpr . COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> eqexpr . COMPARACAODIFERENTE desigexpr
+
+    OPERADORLOGICOE reduce using rule 45 (andexpr -> eqexpr .)
+    OPERADORTERNARIO reduce using rule 45 (andexpr -> eqexpr .)
+    OPERADORLOGICOOU reduce using rule 45 (andexpr -> eqexpr .)
+    PONTOEVIRGULA   reduce using rule 45 (andexpr -> eqexpr .)
+    FECHACOLCHETE   reduce using rule 45 (andexpr -> eqexpr .)
+    FECHAPARENTESES reduce using rule 45 (andexpr -> eqexpr .)
+    VIRGULA         reduce using rule 45 (andexpr -> eqexpr .)
+    DOISPONTOS      reduce using rule 45 (andexpr -> eqexpr .)
+    COMPARACAOIGUAL shift and go to state 73
+    COMPARACAODIFERENTE shift and go to state 74
+
+
+state 38
+
+    (36) comando -> bloco .
+
+    PONTOEVIRGULA   reduce using rule 36 (comando -> bloco .)
+    RETORNE         reduce using rule 36 (comando -> bloco .)
+    LEIA            reduce using rule 36 (comando -> bloco .)
+    ESCREVA         reduce using rule 36 (comando -> bloco .)
+    NOVALINHA       reduce using rule 36 (comando -> bloco .)
+    SE              reduce using rule 36 (comando -> bloco .)
+    ENQUANTO        reduce using rule 36 (comando -> bloco .)
+    ABRECHAVES      reduce using rule 36 (comando -> bloco .)
+    IDENTIFICADOR   reduce using rule 36 (comando -> bloco .)
+    OPERADORSUBTRACAO reduce using rule 36 (comando -> bloco .)
+    OPERADORNEGACAO reduce using rule 36 (comando -> bloco .)
+    CARACTERECONSTANTE reduce using rule 36 (comando -> bloco .)
+    INTEIROCONSTANTE reduce using rule 36 (comando -> bloco .)
+    ABREPARENTESES  reduce using rule 36 (comando -> bloco .)
+    FECHACHAVES     reduce using rule 36 (comando -> bloco .)
+    SENAO           reduce using rule 36 (comando -> bloco .)
+
+
+state 39
+
+    (32) comando -> NOVALINHA . PONTOEVIRGULA
+
+    PONTOEVIRGULA   shift and go to state 75
+
+
+state 40
+
+    (33) comando -> SE . ABREPARENTESES expr FECHAPARENTESES ENTAO comando
+    (34) comando -> SE . ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando
+
+    ABREPARENTESES  shift and go to state 76
+
+
+state 41
+
+    (63) unexpr -> primexpr .
+
+    OPERADORVEZES   reduce using rule 63 (unexpr -> primexpr .)
+    OPERADORDIVISAO reduce using rule 63 (unexpr -> primexpr .)
+    OPERADORRESTODIVISAO reduce using rule 63 (unexpr -> primexpr .)
+    OPERADORSOMA    reduce using rule 63 (unexpr -> primexpr .)
+    OPERADORSUBTRACAO reduce using rule 63 (unexpr -> primexpr .)
+    COMPARACAOMENOR reduce using rule 63 (unexpr -> primexpr .)
+    COMPARACAOMAIOR reduce using rule 63 (unexpr -> primexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 63 (unexpr -> primexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 63 (unexpr -> primexpr .)
+    COMPARACAOIGUAL reduce using rule 63 (unexpr -> primexpr .)
+    COMPARACAODIFERENTE reduce using rule 63 (unexpr -> primexpr .)
+    OPERADORLOGICOE reduce using rule 63 (unexpr -> primexpr .)
+    OPERADORTERNARIO reduce using rule 63 (unexpr -> primexpr .)
+    OPERADORLOGICOOU reduce using rule 63 (unexpr -> primexpr .)
+    FECHACOLCHETE   reduce using rule 63 (unexpr -> primexpr .)
+    FECHAPARENTESES reduce using rule 63 (unexpr -> primexpr .)
+    PONTOEVIRGULA   reduce using rule 63 (unexpr -> primexpr .)
+    VIRGULA         reduce using rule 63 (unexpr -> primexpr .)
+    DOISPONTOS      reduce using rule 63 (unexpr -> primexpr .)
+
+
+state 42
+
+    (18) bloco -> ABRECHAVES listadeclvar FECHACHAVES .
+
+    PONTOEVIRGULA   reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    RETORNE         reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    LEIA            reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    ESCREVA         reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    NOVALINHA       reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    SE              reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    ENQUANTO        reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    ABRECHAVES      reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    IDENTIFICADOR   reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    OPERADORSUBTRACAO reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    OPERADORNEGACAO reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    CARACTERECONSTANTE reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    INTEIROCONSTANTE reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    ABREPARENTESES  reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    FECHACHAVES     reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    SENAO           reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    INTEIRO         reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    CARACTERE       reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    PROGRAMA        reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+    $end            reduce using rule 18 (bloco -> ABRECHAVES listadeclvar FECHACHAVES .)
+
+
+state 43
+
+    (64) lvalueexpr -> IDENTIFICADOR . ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> IDENTIFICADOR .
+    (66) primexpr -> IDENTIFICADOR . ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> IDENTIFICADOR . ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> IDENTIFICADOR . ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> IDENTIFICADOR .
+
+    ABRECOLCHETE    shift and go to state 77
+    ATRIBUICAO      reduce using rule 65 (lvalueexpr -> IDENTIFICADOR .)
+    ABREPARENTESES  shift and go to state 78
+    OPERADORVEZES   reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    OPERADORDIVISAO reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    OPERADORRESTODIVISAO reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    OPERADORSOMA    reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    OPERADORSUBTRACAO reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    COMPARACAOMENOR reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    COMPARACAOMAIOR reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    COMPARACAOMENOROUIGUAL reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    COMPARACAOIGUAL reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    COMPARACAODIFERENTE reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    OPERADORLOGICOE reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    OPERADORTERNARIO reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    OPERADORLOGICOOU reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    FECHAPARENTESES reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    FECHACOLCHETE   reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    PONTOEVIRGULA   reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    VIRGULA         reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    DOISPONTOS      reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+
+
+state 44
+
+    (71) primexpr -> INTEIROCONSTANTE .
+
+    OPERADORVEZES   reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    OPERADORDIVISAO reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    OPERADORRESTODIVISAO reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    OPERADORSOMA    reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    OPERADORSUBTRACAO reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    COMPARACAOMENOR reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    COMPARACAOMAIOR reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    COMPARACAOMENOROUIGUAL reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    COMPARACAOIGUAL reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    COMPARACAODIFERENTE reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    OPERADORLOGICOE reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    OPERADORTERNARIO reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    OPERADORLOGICOOU reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    FECHAPARENTESES reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    PONTOEVIRGULA   reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    FECHACOLCHETE   reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    VIRGULA         reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+    DOISPONTOS      reduce using rule 71 (primexpr -> INTEIROCONSTANTE .)
+
+
+state 45
+
+    (61) unexpr -> OPERADORSUBTRACAO . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    primexpr                       shift and go to state 79
+
+state 46
+
+    (26) comando -> PONTOEVIRGULA .
+
+    PONTOEVIRGULA   reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    RETORNE         reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    LEIA            reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    ESCREVA         reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    NOVALINHA       reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    SE              reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    ENQUANTO        reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    ABRECHAVES      reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    IDENTIFICADOR   reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    OPERADORSUBTRACAO reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    OPERADORNEGACAO reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    CARACTERECONSTANTE reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    INTEIROCONSTANTE reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    ABREPARENTESES  reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    FECHACHAVES     reduce using rule 26 (comando -> PONTOEVIRGULA .)
+    SENAO           reduce using rule 26 (comando -> PONTOEVIRGULA .)
+
+
+state 47
+
+    (53) desigexpr -> addexpr .
+    (54) addexpr -> addexpr . OPERADORSOMA mulexpr
+    (55) addexpr -> addexpr . OPERADORSUBTRACAO mulexpr
+
+    COMPARACAOMENOR reduce using rule 53 (desigexpr -> addexpr .)
+    COMPARACAOMAIOR reduce using rule 53 (desigexpr -> addexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 53 (desigexpr -> addexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 53 (desigexpr -> addexpr .)
+    COMPARACAOIGUAL reduce using rule 53 (desigexpr -> addexpr .)
+    COMPARACAODIFERENTE reduce using rule 53 (desigexpr -> addexpr .)
+    OPERADORLOGICOE reduce using rule 53 (desigexpr -> addexpr .)
+    OPERADORTERNARIO reduce using rule 53 (desigexpr -> addexpr .)
+    OPERADORLOGICOOU reduce using rule 53 (desigexpr -> addexpr .)
+    PONTOEVIRGULA   reduce using rule 53 (desigexpr -> addexpr .)
+    FECHAPARENTESES reduce using rule 53 (desigexpr -> addexpr .)
+    FECHACOLCHETE   reduce using rule 53 (desigexpr -> addexpr .)
+    VIRGULA         reduce using rule 53 (desigexpr -> addexpr .)
+    DOISPONTOS      reduce using rule 53 (desigexpr -> addexpr .)
+    OPERADORSOMA    shift and go to state 81
+    OPERADORSUBTRACAO shift and go to state 80
+
+
+state 48
+
+    (28) comando -> RETORNE . expr PONTOEVIRGULA
+    (37) expr -> . assignexpr
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 54
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    expr                           shift and go to state 82
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    desigexpr                      shift and go to state 53
+
+state 49
+
+    (29) comando -> LEIA . lvalueexpr PONTOEVIRGULA
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+
+    IDENTIFICADOR   shift and go to state 84
+
+    lvalueexpr                     shift and go to state 83
+
+state 50
+
+    (24) listacomando -> comando .
+    (25) listacomando -> comando . listacomando
+    (24) listacomando -> . comando
+    (25) listacomando -> . comando listacomando
+    (26) comando -> . PONTOEVIRGULA
+    (27) comando -> . expr PONTOEVIRGULA
+    (28) comando -> . RETORNE expr PONTOEVIRGULA
+    (29) comando -> . LEIA lvalueexpr PONTOEVIRGULA
+    (30) comando -> . ESCREVA expr PONTOEVIRGULA
+    (31) comando -> . ESCREVA CADEIACARACTERE PONTOEVIRGULA
+    (32) comando -> . NOVALINHA PONTOEVIRGULA
+    (33) comando -> . SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando
+    (34) comando -> . SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando
+    (35) comando -> . ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando
+    (36) comando -> . bloco
+    (37) expr -> . assignexpr
+    (17) bloco -> . ABRECHAVES listadeclvar listacomando FECHACHAVES
+    (18) bloco -> . ABRECHAVES listadeclvar FECHACHAVES
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    FECHACHAVES     reduce using rule 24 (listacomando -> comando .)
+    PONTOEVIRGULA   shift and go to state 46
+    RETORNE         shift and go to state 48
+    LEIA            shift and go to state 49
+    ESCREVA         shift and go to state 55
+    NOVALINHA       shift and go to state 39
+    SE              shift and go to state 40
+    ENQUANTO        shift and go to state 33
+    ABRECHAVES      shift and go to state 14
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 54
+    bloco                          shift and go to state 38
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    unexpr                         shift and go to state 57
+    expr                           shift and go to state 58
+    addexpr                        shift and go to state 47
+    listacomando                   shift and go to state 85
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    comando                        shift and go to state 50
+    desigexpr                      shift and go to state 53
+
+state 51
+
+    (38) assignexpr -> condexpr .
+
+    FECHACOLCHETE   reduce using rule 38 (assignexpr -> condexpr .)
+    PONTOEVIRGULA   reduce using rule 38 (assignexpr -> condexpr .)
+    FECHAPARENTESES reduce using rule 38 (assignexpr -> condexpr .)
+    VIRGULA         reduce using rule 38 (assignexpr -> condexpr .)
+    DOISPONTOS      reduce using rule 38 (assignexpr -> condexpr .)
+
+
+state 52
+
+    (72) primexpr -> ABREPARENTESES . expr FECHAPARENTESES
+    (37) expr -> . assignexpr
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 54
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    expr                           shift and go to state 86
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    desigexpr                      shift and go to state 53
+
+state 53
+
+    (48) eqexpr -> desigexpr .
+    (49) desigexpr -> desigexpr . COMPARACAOMENOR addexpr
+    (50) desigexpr -> desigexpr . COMPARACAOMAIOR addexpr
+    (51) desigexpr -> desigexpr . COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> desigexpr . COMPARACAOMENOROUIGUAL addexpr
+
+    COMPARACAOIGUAL reduce using rule 48 (eqexpr -> desigexpr .)
+    COMPARACAODIFERENTE reduce using rule 48 (eqexpr -> desigexpr .)
+    OPERADORLOGICOE reduce using rule 48 (eqexpr -> desigexpr .)
+    OPERADORTERNARIO reduce using rule 48 (eqexpr -> desigexpr .)
+    OPERADORLOGICOOU reduce using rule 48 (eqexpr -> desigexpr .)
+    FECHACOLCHETE   reduce using rule 48 (eqexpr -> desigexpr .)
+    PONTOEVIRGULA   reduce using rule 48 (eqexpr -> desigexpr .)
+    FECHAPARENTESES reduce using rule 48 (eqexpr -> desigexpr .)
+    VIRGULA         reduce using rule 48 (eqexpr -> desigexpr .)
+    DOISPONTOS      reduce using rule 48 (eqexpr -> desigexpr .)
+    COMPARACAOMENOR shift and go to state 90
+    COMPARACAOMAIOR shift and go to state 87
+    COMPARACAOMAIOROUIGUAL shift and go to state 88
+    COMPARACAOMENOROUIGUAL shift and go to state 89
+
+
+state 54
+
+    (37) expr -> assignexpr .
+
+    FECHACOLCHETE   reduce using rule 37 (expr -> assignexpr .)
+    PONTOEVIRGULA   reduce using rule 37 (expr -> assignexpr .)
+    FECHAPARENTESES reduce using rule 37 (expr -> assignexpr .)
+    DOISPONTOS      reduce using rule 37 (expr -> assignexpr .)
+
+
+state 55
+
+    (30) comando -> ESCREVA . expr PONTOEVIRGULA
+    (31) comando -> ESCREVA . CADEIACARACTERE PONTOEVIRGULA
+    (37) expr -> . assignexpr
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    CADEIACARACTERE shift and go to state 92
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 54
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    expr                           shift and go to state 91
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    desigexpr                      shift and go to state 53
+
+state 56
+
+    (40) condexpr -> orexpr .
+    (41) condexpr -> orexpr . OPERADORTERNARIO expr DOISPONTOS condexpr
+    (42) orexpr -> orexpr . OPERADORLOGICOOU andexpr
+
+    FECHACOLCHETE   reduce using rule 40 (condexpr -> orexpr .)
+    PONTOEVIRGULA   reduce using rule 40 (condexpr -> orexpr .)
+    FECHAPARENTESES reduce using rule 40 (condexpr -> orexpr .)
+    VIRGULA         reduce using rule 40 (condexpr -> orexpr .)
+    DOISPONTOS      reduce using rule 40 (condexpr -> orexpr .)
+    OPERADORTERNARIO shift and go to state 93
+    OPERADORLOGICOOU shift and go to state 94
+
+
+state 57
+
+    (60) mulexpr -> unexpr .
+
+    OPERADORVEZES   reduce using rule 60 (mulexpr -> unexpr .)
+    OPERADORDIVISAO reduce using rule 60 (mulexpr -> unexpr .)
+    OPERADORRESTODIVISAO reduce using rule 60 (mulexpr -> unexpr .)
+    OPERADORSOMA    reduce using rule 60 (mulexpr -> unexpr .)
+    OPERADORSUBTRACAO reduce using rule 60 (mulexpr -> unexpr .)
+    COMPARACAOMENOR reduce using rule 60 (mulexpr -> unexpr .)
+    COMPARACAOMAIOR reduce using rule 60 (mulexpr -> unexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 60 (mulexpr -> unexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 60 (mulexpr -> unexpr .)
+    COMPARACAOIGUAL reduce using rule 60 (mulexpr -> unexpr .)
+    COMPARACAODIFERENTE reduce using rule 60 (mulexpr -> unexpr .)
+    OPERADORLOGICOE reduce using rule 60 (mulexpr -> unexpr .)
+    OPERADORTERNARIO reduce using rule 60 (mulexpr -> unexpr .)
+    OPERADORLOGICOOU reduce using rule 60 (mulexpr -> unexpr .)
+    PONTOEVIRGULA   reduce using rule 60 (mulexpr -> unexpr .)
+    FECHAPARENTESES reduce using rule 60 (mulexpr -> unexpr .)
+    FECHACOLCHETE   reduce using rule 60 (mulexpr -> unexpr .)
+    VIRGULA         reduce using rule 60 (mulexpr -> unexpr .)
+    DOISPONTOS      reduce using rule 60 (mulexpr -> unexpr .)
+
+
+state 58
+
+    (27) comando -> expr . PONTOEVIRGULA
+
+    PONTOEVIRGULA   shift and go to state 95
+
+
+state 59
+
+    (17) bloco -> ABRECHAVES listadeclvar listacomando . FECHACHAVES
+
+    FECHACHAVES     shift and go to state 96
+
+
+state 60
+
+    (56) addexpr -> mulexpr .
+    (57) mulexpr -> mulexpr . OPERADORVEZES unexpr
+    (58) mulexpr -> mulexpr . OPERADORDIVISAO unexpr
+    (59) mulexpr -> mulexpr . OPERADORRESTODIVISAO unexpr
+
+    OPERADORSOMA    reduce using rule 56 (addexpr -> mulexpr .)
+    OPERADORSUBTRACAO reduce using rule 56 (addexpr -> mulexpr .)
+    COMPARACAOMENOR reduce using rule 56 (addexpr -> mulexpr .)
+    COMPARACAOMAIOR reduce using rule 56 (addexpr -> mulexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 56 (addexpr -> mulexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 56 (addexpr -> mulexpr .)
+    COMPARACAOIGUAL reduce using rule 56 (addexpr -> mulexpr .)
+    COMPARACAODIFERENTE reduce using rule 56 (addexpr -> mulexpr .)
+    OPERADORLOGICOE reduce using rule 56 (addexpr -> mulexpr .)
+    OPERADORTERNARIO reduce using rule 56 (addexpr -> mulexpr .)
+    OPERADORLOGICOOU reduce using rule 56 (addexpr -> mulexpr .)
+    PONTOEVIRGULA   reduce using rule 56 (addexpr -> mulexpr .)
+    FECHAPARENTESES reduce using rule 56 (addexpr -> mulexpr .)
+    FECHACOLCHETE   reduce using rule 56 (addexpr -> mulexpr .)
+    VIRGULA         reduce using rule 56 (addexpr -> mulexpr .)
+    DOISPONTOS      reduce using rule 56 (addexpr -> mulexpr .)
+    OPERADORVEZES   shift and go to state 99
+    OPERADORDIVISAO shift and go to state 98
+    OPERADORRESTODIVISAO shift and go to state 97
+
+
+state 61
+
+    (8) declvar -> VIRGULA IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE . FECHACOLCHETE declvar
+
+    FECHACOLCHETE   shift and go to state 100
+
+
+state 62
+
+    (3) declfuncvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar . PONTOEVIRGULA declfuncvar
+
+    PONTOEVIRGULA   shift and go to state 101
+
+
+state 63
+
+    (15) listaparametroscont -> tipo IDENTIFICADOR VIRGULA . listaparametroscont
+    (13) listaparametroscont -> . tipo IDENTIFICADOR
+    (14) listaparametroscont -> . tipo IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE
+    (15) listaparametroscont -> . tipo IDENTIFICADOR VIRGULA listaparametroscont
+    (16) listaparametroscont -> . tipo IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE VIRGULA listaparametroscont
+    (22) tipo -> . INTEIRO
+    (23) tipo -> . CARACTERE
+
+    INTEIRO         shift and go to state 2
+    CARACTERE       shift and go to state 4
+
+    tipo                           shift and go to state 20
+    listaparametroscont            shift and go to state 102
+
+state 64
+
+    (14) listaparametroscont -> tipo IDENTIFICADOR ABRECOLCHETE . FECHACOLCHETE
+    (16) listaparametroscont -> tipo IDENTIFICADOR ABRECOLCHETE . FECHACOLCHETE VIRGULA listaparametroscont
+
+    FECHACOLCHETE   shift and go to state 103
+
+
+state 65
+
+    (10) declfunc -> ABREPARENTESES listaparametros FECHAPARENTESES bloco .
+
+    INTEIRO         reduce using rule 10 (declfunc -> ABREPARENTESES listaparametros FECHAPARENTESES bloco .)
+    CARACTERE       reduce using rule 10 (declfunc -> ABREPARENTESES listaparametros FECHAPARENTESES bloco .)
+    PROGRAMA        reduce using rule 10 (declfunc -> ABREPARENTESES listaparametros FECHAPARENTESES bloco .)
+
+
+state 66
+
+    (20) listadeclvar -> tipo IDENTIFICADOR declvar . PONTOEVIRGULA listadeclvar
+
+    PONTOEVIRGULA   shift and go to state 104
+
+
+state 67
+
+    (21) listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE . INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar
+
+    INTEIROCONSTANTE shift and go to state 105
+
+
+state 68
+
+    (39) assignexpr -> lvalueexpr ATRIBUICAO . assignexpr
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 106
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    desigexpr                      shift and go to state 53
+
+state 69
+
+    (35) comando -> ENQUANTO ABREPARENTESES . expr FECHAPARENTESES EXECUTE comando
+    (37) expr -> . assignexpr
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 54
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    expr                           shift and go to state 107
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    desigexpr                      shift and go to state 53
+
+state 70
+
+    (66) primexpr -> IDENTIFICADOR . ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> IDENTIFICADOR . ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> IDENTIFICADOR . ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> IDENTIFICADOR .
+
+    ABREPARENTESES  shift and go to state 78
+    ABRECOLCHETE    shift and go to state 108
+    OPERADORVEZES   reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    OPERADORDIVISAO reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    OPERADORRESTODIVISAO reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    OPERADORSOMA    reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    OPERADORSUBTRACAO reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    COMPARACAOMENOR reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    COMPARACAOMAIOR reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    COMPARACAOMENOROUIGUAL reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    COMPARACAOIGUAL reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    COMPARACAODIFERENTE reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    OPERADORLOGICOE reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    OPERADORTERNARIO reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    OPERADORLOGICOOU reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    PONTOEVIRGULA   reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    FECHAPARENTESES reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    FECHACOLCHETE   reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    VIRGULA         reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+    DOISPONTOS      reduce using rule 69 (primexpr -> IDENTIFICADOR .)
+
+
+state 71
+
+    (62) unexpr -> OPERADORNEGACAO primexpr .
+
+    OPERADORVEZES   reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    OPERADORDIVISAO reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    OPERADORRESTODIVISAO reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    OPERADORSOMA    reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    OPERADORSUBTRACAO reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    COMPARACAOMENOR reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    COMPARACAOMAIOR reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    COMPARACAOIGUAL reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    COMPARACAODIFERENTE reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    OPERADORLOGICOE reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    OPERADORTERNARIO reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    OPERADORLOGICOOU reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    FECHACOLCHETE   reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    FECHAPARENTESES reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    PONTOEVIRGULA   reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    VIRGULA         reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+    DOISPONTOS      reduce using rule 62 (unexpr -> OPERADORNEGACAO primexpr .)
+
+
+state 72
+
+    (44) andexpr -> andexpr OPERADORLOGICOE . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 109
+    addexpr                        shift and go to state 47
+    desigexpr                      shift and go to state 53
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    mulexpr                        shift and go to state 60
+
+state 73
+
+    (46) eqexpr -> eqexpr COMPARACAOIGUAL . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    addexpr                        shift and go to state 47
+    desigexpr                      shift and go to state 110
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    mulexpr                        shift and go to state 60
+
+state 74
+
+    (47) eqexpr -> eqexpr COMPARACAODIFERENTE . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    addexpr                        shift and go to state 47
+    desigexpr                      shift and go to state 111
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    mulexpr                        shift and go to state 60
+
+state 75
+
+    (32) comando -> NOVALINHA PONTOEVIRGULA .
+
+    PONTOEVIRGULA   reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    RETORNE         reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    LEIA            reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    ESCREVA         reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    NOVALINHA       reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    SE              reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    ENQUANTO        reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    ABRECHAVES      reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    IDENTIFICADOR   reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    OPERADORSUBTRACAO reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    OPERADORNEGACAO reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    CARACTERECONSTANTE reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    INTEIROCONSTANTE reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    ABREPARENTESES  reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    FECHACHAVES     reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+    SENAO           reduce using rule 32 (comando -> NOVALINHA PONTOEVIRGULA .)
+
+
+state 76
+
+    (33) comando -> SE ABREPARENTESES . expr FECHAPARENTESES ENTAO comando
+    (34) comando -> SE ABREPARENTESES . expr FECHAPARENTESES ENTAO comando SENAO comando
+    (37) expr -> . assignexpr
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 54
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    expr                           shift and go to state 112
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    desigexpr                      shift and go to state 53
+
+state 77
+
+    (64) lvalueexpr -> IDENTIFICADOR ABRECOLCHETE . expr FECHACOLCHETE
+    (68) primexpr -> IDENTIFICADOR ABRECOLCHETE . expr FECHACOLCHETE
+    (37) expr -> . assignexpr
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 54
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    expr                           shift and go to state 113
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    desigexpr                      shift and go to state 53
+
+state 78
+
+    (66) primexpr -> IDENTIFICADOR ABREPARENTESES . listexpr FECHAPARENTESES
+    (67) primexpr -> IDENTIFICADOR ABREPARENTESES . FECHAPARENTESES
+    (73) listexpr -> . assignexpr
+    (74) listexpr -> . listexpr VIRGULA assignexpr
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    FECHAPARENTESES shift and go to state 114
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 115
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    listexpr                       shift and go to state 116
+    desigexpr                      shift and go to state 53
+
+state 79
+
+    (61) unexpr -> OPERADORSUBTRACAO primexpr .
+
+    OPERADORVEZES   reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    OPERADORDIVISAO reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    OPERADORRESTODIVISAO reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    OPERADORSOMA    reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    OPERADORSUBTRACAO reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    COMPARACAOMENOR reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    COMPARACAOMAIOR reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    COMPARACAOIGUAL reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    COMPARACAODIFERENTE reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    OPERADORLOGICOE reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    OPERADORTERNARIO reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    OPERADORLOGICOOU reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    FECHACOLCHETE   reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    FECHAPARENTESES reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    PONTOEVIRGULA   reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    VIRGULA         reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+    DOISPONTOS      reduce using rule 61 (unexpr -> OPERADORSUBTRACAO primexpr .)
+
+
+state 80
+
+    (55) addexpr -> addexpr OPERADORSUBTRACAO . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    mulexpr                        shift and go to state 117
+
+state 81
+
+    (54) addexpr -> addexpr OPERADORSOMA . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    mulexpr                        shift and go to state 118
+
+state 82
+
+    (28) comando -> RETORNE expr . PONTOEVIRGULA
+
+    PONTOEVIRGULA   shift and go to state 119
+
+
+state 83
+
+    (29) comando -> LEIA lvalueexpr . PONTOEVIRGULA
+
+    PONTOEVIRGULA   shift and go to state 120
+
+
+state 84
+
+    (64) lvalueexpr -> IDENTIFICADOR . ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> IDENTIFICADOR .
+
+    ABRECOLCHETE    shift and go to state 121
+    PONTOEVIRGULA   reduce using rule 65 (lvalueexpr -> IDENTIFICADOR .)
+
+
+state 85
+
+    (25) listacomando -> comando listacomando .
+
+    FECHACHAVES     reduce using rule 25 (listacomando -> comando listacomando .)
+
+
+state 86
+
+    (72) primexpr -> ABREPARENTESES expr . FECHAPARENTESES
+
+    FECHAPARENTESES shift and go to state 122
+
+
+state 87
+
+    (50) desigexpr -> desigexpr COMPARACAOMAIOR . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    addexpr                        shift and go to state 123
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    mulexpr                        shift and go to state 60
+
+state 88
+
+    (51) desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    addexpr                        shift and go to state 124
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    mulexpr                        shift and go to state 60
+
+state 89
+
+    (52) desigexpr -> desigexpr COMPARACAOMENOROUIGUAL . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    addexpr                        shift and go to state 125
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    mulexpr                        shift and go to state 60
+
+state 90
+
+    (49) desigexpr -> desigexpr COMPARACAOMENOR . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    addexpr                        shift and go to state 126
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    mulexpr                        shift and go to state 60
+
+state 91
+
+    (30) comando -> ESCREVA expr . PONTOEVIRGULA
+
+    PONTOEVIRGULA   shift and go to state 127
+
+
+state 92
+
+    (31) comando -> ESCREVA CADEIACARACTERE . PONTOEVIRGULA
+
+    PONTOEVIRGULA   shift and go to state 128
+
+
+state 93
+
+    (41) condexpr -> orexpr OPERADORTERNARIO . expr DOISPONTOS condexpr
+    (37) expr -> . assignexpr
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 54
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    expr                           shift and go to state 129
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    desigexpr                      shift and go to state 53
+
+state 94
+
+    (42) orexpr -> orexpr OPERADORLOGICOOU . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    addexpr                        shift and go to state 47
+    desigexpr                      shift and go to state 53
+    andexpr                        shift and go to state 130
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    mulexpr                        shift and go to state 60
+
+state 95
+
+    (27) comando -> expr PONTOEVIRGULA .
+
+    PONTOEVIRGULA   reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    RETORNE         reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    LEIA            reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    ESCREVA         reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    NOVALINHA       reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    SE              reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    ENQUANTO        reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    ABRECHAVES      reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    IDENTIFICADOR   reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    OPERADORSUBTRACAO reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    OPERADORNEGACAO reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    CARACTERECONSTANTE reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    INTEIROCONSTANTE reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    ABREPARENTESES  reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    FECHACHAVES     reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+    SENAO           reduce using rule 27 (comando -> expr PONTOEVIRGULA .)
+
+
+state 96
+
+    (17) bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .
+
+    PONTOEVIRGULA   reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    RETORNE         reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    LEIA            reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    ESCREVA         reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    NOVALINHA       reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    SE              reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    ENQUANTO        reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    ABRECHAVES      reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    IDENTIFICADOR   reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    OPERADORSUBTRACAO reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    OPERADORNEGACAO reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    CARACTERECONSTANTE reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    INTEIROCONSTANTE reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    ABREPARENTESES  reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    FECHACHAVES     reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    SENAO           reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    INTEIRO         reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    CARACTERE       reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    PROGRAMA        reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+    $end            reduce using rule 17 (bloco -> ABRECHAVES listadeclvar listacomando FECHACHAVES .)
+
+
+state 97
+
+    (59) mulexpr -> mulexpr OPERADORRESTODIVISAO . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    primexpr                       shift and go to state 41
+    unexpr                         shift and go to state 131
+
+state 98
+
+    (58) mulexpr -> mulexpr OPERADORDIVISAO . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    primexpr                       shift and go to state 41
+    unexpr                         shift and go to state 132
+
+state 99
+
+    (57) mulexpr -> mulexpr OPERADORVEZES . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    primexpr                       shift and go to state 41
+    unexpr                         shift and go to state 133
+
+state 100
+
+    (8) declvar -> VIRGULA IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE . declvar
+    (7) declvar -> . VIRGULA IDENTIFICADOR declvar
+    (8) declvar -> . VIRGULA IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar
+    (9) declvar -> .
+
+    VIRGULA         shift and go to state 11
+    PONTOEVIRGULA   reduce using rule 9 (declvar -> .)
+
+    declvar                        shift and go to state 134
+
+state 101
+
+    (3) declfuncvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA . declfuncvar
+    (2) declfuncvar -> . tipo IDENTIFICADOR declvar PONTOEVIRGULA declfuncvar
+    (3) declfuncvar -> . tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA declfuncvar
+    (4) declfuncvar -> . tipo IDENTIFICADOR declfunc declfuncvar
+    (5) declfuncvar -> .
+    (22) tipo -> . INTEIRO
+    (23) tipo -> . CARACTERE
+
+    PROGRAMA        reduce using rule 5 (declfuncvar -> .)
+    INTEIRO         shift and go to state 2
+    CARACTERE       shift and go to state 4
+
+    tipo                           shift and go to state 1
+    declfuncvar                    shift and go to state 135
+
+state 102
+
+    (15) listaparametroscont -> tipo IDENTIFICADOR VIRGULA listaparametroscont .
+
+    FECHAPARENTESES reduce using rule 15 (listaparametroscont -> tipo IDENTIFICADOR VIRGULA listaparametroscont .)
+
+
+state 103
+
+    (14) listaparametroscont -> tipo IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE .
+    (16) listaparametroscont -> tipo IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE . VIRGULA listaparametroscont
+
+    FECHAPARENTESES reduce using rule 14 (listaparametroscont -> tipo IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE .)
+    VIRGULA         shift and go to state 136
+
+
+state 104
+
+    (20) listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA . listadeclvar
+    (19) listadeclvar -> .
+    (20) listadeclvar -> . tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar
+    (21) listadeclvar -> . tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar
+    (22) tipo -> . INTEIRO
+    (23) tipo -> . CARACTERE
+
+    FECHACHAVES     reduce using rule 19 (listadeclvar -> .)
+    PONTOEVIRGULA   reduce using rule 19 (listadeclvar -> .)
+    RETORNE         reduce using rule 19 (listadeclvar -> .)
+    LEIA            reduce using rule 19 (listadeclvar -> .)
+    ESCREVA         reduce using rule 19 (listadeclvar -> .)
+    NOVALINHA       reduce using rule 19 (listadeclvar -> .)
+    SE              reduce using rule 19 (listadeclvar -> .)
+    ENQUANTO        reduce using rule 19 (listadeclvar -> .)
+    ABRECHAVES      reduce using rule 19 (listadeclvar -> .)
+    IDENTIFICADOR   reduce using rule 19 (listadeclvar -> .)
+    OPERADORSUBTRACAO reduce using rule 19 (listadeclvar -> .)
+    OPERADORNEGACAO reduce using rule 19 (listadeclvar -> .)
+    CARACTERECONSTANTE reduce using rule 19 (listadeclvar -> .)
+    INTEIROCONSTANTE reduce using rule 19 (listadeclvar -> .)
+    ABREPARENTESES  reduce using rule 19 (listadeclvar -> .)
+    INTEIRO         shift and go to state 2
+    CARACTERE       shift and go to state 4
+
+    tipo                           shift and go to state 23
+    listadeclvar                   shift and go to state 137
+
+state 105
+
+    (21) listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE . FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar
+
+    FECHACOLCHETE   shift and go to state 138
+
+
+state 106
+
+    (39) assignexpr -> lvalueexpr ATRIBUICAO assignexpr .
+
+    FECHACOLCHETE   reduce using rule 39 (assignexpr -> lvalueexpr ATRIBUICAO assignexpr .)
+    PONTOEVIRGULA   reduce using rule 39 (assignexpr -> lvalueexpr ATRIBUICAO assignexpr .)
+    FECHAPARENTESES reduce using rule 39 (assignexpr -> lvalueexpr ATRIBUICAO assignexpr .)
+    VIRGULA         reduce using rule 39 (assignexpr -> lvalueexpr ATRIBUICAO assignexpr .)
+    DOISPONTOS      reduce using rule 39 (assignexpr -> lvalueexpr ATRIBUICAO assignexpr .)
+
+
+state 107
+
+    (35) comando -> ENQUANTO ABREPARENTESES expr . FECHAPARENTESES EXECUTE comando
+
+    FECHAPARENTESES shift and go to state 139
+
+
+state 108
+
+    (68) primexpr -> IDENTIFICADOR ABRECOLCHETE . expr FECHACOLCHETE
+    (37) expr -> . assignexpr
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 54
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    expr                           shift and go to state 140
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    desigexpr                      shift and go to state 53
+
+state 109
+
+    (44) andexpr -> andexpr OPERADORLOGICOE eqexpr .
+    (46) eqexpr -> eqexpr . COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> eqexpr . COMPARACAODIFERENTE desigexpr
+
+    OPERADORLOGICOE reduce using rule 44 (andexpr -> andexpr OPERADORLOGICOE eqexpr .)
+    OPERADORTERNARIO reduce using rule 44 (andexpr -> andexpr OPERADORLOGICOE eqexpr .)
+    OPERADORLOGICOOU reduce using rule 44 (andexpr -> andexpr OPERADORLOGICOE eqexpr .)
+    PONTOEVIRGULA   reduce using rule 44 (andexpr -> andexpr OPERADORLOGICOE eqexpr .)
+    FECHACOLCHETE   reduce using rule 44 (andexpr -> andexpr OPERADORLOGICOE eqexpr .)
+    FECHAPARENTESES reduce using rule 44 (andexpr -> andexpr OPERADORLOGICOE eqexpr .)
+    VIRGULA         reduce using rule 44 (andexpr -> andexpr OPERADORLOGICOE eqexpr .)
+    DOISPONTOS      reduce using rule 44 (andexpr -> andexpr OPERADORLOGICOE eqexpr .)
+    COMPARACAOIGUAL shift and go to state 73
+    COMPARACAODIFERENTE shift and go to state 74
+
+
+state 110
+
+    (46) eqexpr -> eqexpr COMPARACAOIGUAL desigexpr .
+    (49) desigexpr -> desigexpr . COMPARACAOMENOR addexpr
+    (50) desigexpr -> desigexpr . COMPARACAOMAIOR addexpr
+    (51) desigexpr -> desigexpr . COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> desigexpr . COMPARACAOMENOROUIGUAL addexpr
+
+    COMPARACAOIGUAL reduce using rule 46 (eqexpr -> eqexpr COMPARACAOIGUAL desigexpr .)
+    COMPARACAODIFERENTE reduce using rule 46 (eqexpr -> eqexpr COMPARACAOIGUAL desigexpr .)
+    OPERADORLOGICOE reduce using rule 46 (eqexpr -> eqexpr COMPARACAOIGUAL desigexpr .)
+    OPERADORTERNARIO reduce using rule 46 (eqexpr -> eqexpr COMPARACAOIGUAL desigexpr .)
+    OPERADORLOGICOOU reduce using rule 46 (eqexpr -> eqexpr COMPARACAOIGUAL desigexpr .)
+    FECHACOLCHETE   reduce using rule 46 (eqexpr -> eqexpr COMPARACAOIGUAL desigexpr .)
+    PONTOEVIRGULA   reduce using rule 46 (eqexpr -> eqexpr COMPARACAOIGUAL desigexpr .)
+    FECHAPARENTESES reduce using rule 46 (eqexpr -> eqexpr COMPARACAOIGUAL desigexpr .)
+    VIRGULA         reduce using rule 46 (eqexpr -> eqexpr COMPARACAOIGUAL desigexpr .)
+    DOISPONTOS      reduce using rule 46 (eqexpr -> eqexpr COMPARACAOIGUAL desigexpr .)
+    COMPARACAOMENOR shift and go to state 90
+    COMPARACAOMAIOR shift and go to state 87
+    COMPARACAOMAIOROUIGUAL shift and go to state 88
+    COMPARACAOMENOROUIGUAL shift and go to state 89
+
+
+state 111
+
+    (47) eqexpr -> eqexpr COMPARACAODIFERENTE desigexpr .
+    (49) desigexpr -> desigexpr . COMPARACAOMENOR addexpr
+    (50) desigexpr -> desigexpr . COMPARACAOMAIOR addexpr
+    (51) desigexpr -> desigexpr . COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> desigexpr . COMPARACAOMENOROUIGUAL addexpr
+
+    COMPARACAOIGUAL reduce using rule 47 (eqexpr -> eqexpr COMPARACAODIFERENTE desigexpr .)
+    COMPARACAODIFERENTE reduce using rule 47 (eqexpr -> eqexpr COMPARACAODIFERENTE desigexpr .)
+    OPERADORLOGICOE reduce using rule 47 (eqexpr -> eqexpr COMPARACAODIFERENTE desigexpr .)
+    OPERADORTERNARIO reduce using rule 47 (eqexpr -> eqexpr COMPARACAODIFERENTE desigexpr .)
+    OPERADORLOGICOOU reduce using rule 47 (eqexpr -> eqexpr COMPARACAODIFERENTE desigexpr .)
+    FECHACOLCHETE   reduce using rule 47 (eqexpr -> eqexpr COMPARACAODIFERENTE desigexpr .)
+    PONTOEVIRGULA   reduce using rule 47 (eqexpr -> eqexpr COMPARACAODIFERENTE desigexpr .)
+    FECHAPARENTESES reduce using rule 47 (eqexpr -> eqexpr COMPARACAODIFERENTE desigexpr .)
+    VIRGULA         reduce using rule 47 (eqexpr -> eqexpr COMPARACAODIFERENTE desigexpr .)
+    DOISPONTOS      reduce using rule 47 (eqexpr -> eqexpr COMPARACAODIFERENTE desigexpr .)
+    COMPARACAOMENOR shift and go to state 90
+    COMPARACAOMAIOR shift and go to state 87
+    COMPARACAOMAIOROUIGUAL shift and go to state 88
+    COMPARACAOMENOROUIGUAL shift and go to state 89
+
+
+state 112
+
+    (33) comando -> SE ABREPARENTESES expr . FECHAPARENTESES ENTAO comando
+    (34) comando -> SE ABREPARENTESES expr . FECHAPARENTESES ENTAO comando SENAO comando
+
+    FECHAPARENTESES shift and go to state 141
+
+
+state 113
+
+    (64) lvalueexpr -> IDENTIFICADOR ABRECOLCHETE expr . FECHACOLCHETE
+    (68) primexpr -> IDENTIFICADOR ABRECOLCHETE expr . FECHACOLCHETE
+
+    FECHACOLCHETE   shift and go to state 142
+
+
+state 114
+
+    (67) primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .
+
+    OPERADORVEZES   reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    OPERADORDIVISAO reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    OPERADORRESTODIVISAO reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    OPERADORSOMA    reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    OPERADORSUBTRACAO reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    COMPARACAOMENOR reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    COMPARACAOMAIOR reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    COMPARACAOMENOROUIGUAL reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    COMPARACAOIGUAL reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    COMPARACAODIFERENTE reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    OPERADORLOGICOE reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    OPERADORTERNARIO reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    OPERADORLOGICOOU reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    FECHAPARENTESES reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    PONTOEVIRGULA   reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    FECHACOLCHETE   reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    VIRGULA         reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+    DOISPONTOS      reduce using rule 67 (primexpr -> IDENTIFICADOR ABREPARENTESES FECHAPARENTESES .)
+
+
+state 115
+
+    (73) listexpr -> assignexpr .
+
+    FECHAPARENTESES reduce using rule 73 (listexpr -> assignexpr .)
+    VIRGULA         reduce using rule 73 (listexpr -> assignexpr .)
+
+
+state 116
+
+    (66) primexpr -> IDENTIFICADOR ABREPARENTESES listexpr . FECHAPARENTESES
+    (74) listexpr -> listexpr . VIRGULA assignexpr
+
+    FECHAPARENTESES shift and go to state 143
+    VIRGULA         shift and go to state 144
+
+
+state 117
+
+    (55) addexpr -> addexpr OPERADORSUBTRACAO mulexpr .
+    (57) mulexpr -> mulexpr . OPERADORVEZES unexpr
+    (58) mulexpr -> mulexpr . OPERADORDIVISAO unexpr
+    (59) mulexpr -> mulexpr . OPERADORRESTODIVISAO unexpr
+
+    OPERADORSOMA    reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    OPERADORSUBTRACAO reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    COMPARACAOMENOR reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    COMPARACAOMAIOR reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    COMPARACAOIGUAL reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    COMPARACAODIFERENTE reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    OPERADORLOGICOE reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    OPERADORTERNARIO reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    OPERADORLOGICOOU reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    PONTOEVIRGULA   reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    FECHAPARENTESES reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    FECHACOLCHETE   reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    VIRGULA         reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    DOISPONTOS      reduce using rule 55 (addexpr -> addexpr OPERADORSUBTRACAO mulexpr .)
+    OPERADORVEZES   shift and go to state 99
+    OPERADORDIVISAO shift and go to state 98
+    OPERADORRESTODIVISAO shift and go to state 97
+
+
+state 118
+
+    (54) addexpr -> addexpr OPERADORSOMA mulexpr .
+    (57) mulexpr -> mulexpr . OPERADORVEZES unexpr
+    (58) mulexpr -> mulexpr . OPERADORDIVISAO unexpr
+    (59) mulexpr -> mulexpr . OPERADORRESTODIVISAO unexpr
+
+    OPERADORSOMA    reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    OPERADORSUBTRACAO reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    COMPARACAOMENOR reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    COMPARACAOMAIOR reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    COMPARACAOIGUAL reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    COMPARACAODIFERENTE reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    OPERADORLOGICOE reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    OPERADORTERNARIO reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    OPERADORLOGICOOU reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    PONTOEVIRGULA   reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    FECHAPARENTESES reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    FECHACOLCHETE   reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    VIRGULA         reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    DOISPONTOS      reduce using rule 54 (addexpr -> addexpr OPERADORSOMA mulexpr .)
+    OPERADORVEZES   shift and go to state 99
+    OPERADORDIVISAO shift and go to state 98
+    OPERADORRESTODIVISAO shift and go to state 97
+
+
+state 119
+
+    (28) comando -> RETORNE expr PONTOEVIRGULA .
+
+    PONTOEVIRGULA   reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    RETORNE         reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    LEIA            reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    ESCREVA         reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    NOVALINHA       reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    SE              reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    ENQUANTO        reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    ABRECHAVES      reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    IDENTIFICADOR   reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    OPERADORSUBTRACAO reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    OPERADORNEGACAO reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    CARACTERECONSTANTE reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    INTEIROCONSTANTE reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    ABREPARENTESES  reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    FECHACHAVES     reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+    SENAO           reduce using rule 28 (comando -> RETORNE expr PONTOEVIRGULA .)
+
+
+state 120
+
+    (29) comando -> LEIA lvalueexpr PONTOEVIRGULA .
+
+    PONTOEVIRGULA   reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    RETORNE         reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    LEIA            reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    ESCREVA         reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    NOVALINHA       reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    SE              reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    ENQUANTO        reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    ABRECHAVES      reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    IDENTIFICADOR   reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    OPERADORSUBTRACAO reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    OPERADORNEGACAO reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    CARACTERECONSTANTE reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    INTEIROCONSTANTE reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    ABREPARENTESES  reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    FECHACHAVES     reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+    SENAO           reduce using rule 29 (comando -> LEIA lvalueexpr PONTOEVIRGULA .)
+
+
+state 121
+
+    (64) lvalueexpr -> IDENTIFICADOR ABRECOLCHETE . expr FECHACOLCHETE
+    (37) expr -> . assignexpr
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 54
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    expr                           shift and go to state 145
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    desigexpr                      shift and go to state 53
+
+state 122
+
+    (72) primexpr -> ABREPARENTESES expr FECHAPARENTESES .
+
+    OPERADORVEZES   reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    OPERADORDIVISAO reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    OPERADORRESTODIVISAO reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    OPERADORSOMA    reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    OPERADORSUBTRACAO reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    COMPARACAOMENOR reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    COMPARACAOMAIOR reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    COMPARACAOMENOROUIGUAL reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    COMPARACAOIGUAL reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    COMPARACAODIFERENTE reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    OPERADORLOGICOE reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    OPERADORTERNARIO reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    OPERADORLOGICOOU reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    FECHAPARENTESES reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    PONTOEVIRGULA   reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    FECHACOLCHETE   reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    VIRGULA         reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+    DOISPONTOS      reduce using rule 72 (primexpr -> ABREPARENTESES expr FECHAPARENTESES .)
+
+
+state 123
+
+    (50) desigexpr -> desigexpr COMPARACAOMAIOR addexpr .
+    (54) addexpr -> addexpr . OPERADORSOMA mulexpr
+    (55) addexpr -> addexpr . OPERADORSUBTRACAO mulexpr
+
+    COMPARACAOMENOR reduce using rule 50 (desigexpr -> desigexpr COMPARACAOMAIOR addexpr .)
+    COMPARACAOMAIOR reduce using rule 50 (desigexpr -> desigexpr COMPARACAOMAIOR addexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 50 (desigexpr -> desigexpr COMPARACAOMAIOR addexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 50 (desigexpr -> desigexpr COMPARACAOMAIOR addexpr .)
+    COMPARACAOIGUAL reduce using rule 50 (desigexpr -> desigexpr COMPARACAOMAIOR addexpr .)
+    COMPARACAODIFERENTE reduce using rule 50 (desigexpr -> desigexpr COMPARACAOMAIOR addexpr .)
+    OPERADORLOGICOE reduce using rule 50 (desigexpr -> desigexpr COMPARACAOMAIOR addexpr .)
+    OPERADORTERNARIO reduce using rule 50 (desigexpr -> desigexpr COMPARACAOMAIOR addexpr .)
+    OPERADORLOGICOOU reduce using rule 50 (desigexpr -> desigexpr COMPARACAOMAIOR addexpr .)
+    PONTOEVIRGULA   reduce using rule 50 (desigexpr -> desigexpr COMPARACAOMAIOR addexpr .)
+    FECHAPARENTESES reduce using rule 50 (desigexpr -> desigexpr COMPARACAOMAIOR addexpr .)
+    FECHACOLCHETE   reduce using rule 50 (desigexpr -> desigexpr COMPARACAOMAIOR addexpr .)
+    VIRGULA         reduce using rule 50 (desigexpr -> desigexpr COMPARACAOMAIOR addexpr .)
+    DOISPONTOS      reduce using rule 50 (desigexpr -> desigexpr COMPARACAOMAIOR addexpr .)
+    OPERADORSOMA    shift and go to state 81
+    OPERADORSUBTRACAO shift and go to state 80
+
+
+state 124
+
+    (51) desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .
+    (54) addexpr -> addexpr . OPERADORSOMA mulexpr
+    (55) addexpr -> addexpr . OPERADORSUBTRACAO mulexpr
+
+    COMPARACAOMENOR reduce using rule 51 (desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .)
+    COMPARACAOMAIOR reduce using rule 51 (desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 51 (desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 51 (desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .)
+    COMPARACAOIGUAL reduce using rule 51 (desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .)
+    COMPARACAODIFERENTE reduce using rule 51 (desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .)
+    OPERADORLOGICOE reduce using rule 51 (desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .)
+    OPERADORTERNARIO reduce using rule 51 (desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .)
+    OPERADORLOGICOOU reduce using rule 51 (desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .)
+    PONTOEVIRGULA   reduce using rule 51 (desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .)
+    FECHAPARENTESES reduce using rule 51 (desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .)
+    FECHACOLCHETE   reduce using rule 51 (desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .)
+    VIRGULA         reduce using rule 51 (desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .)
+    DOISPONTOS      reduce using rule 51 (desigexpr -> desigexpr COMPARACAOMAIOROUIGUAL addexpr .)
+    OPERADORSOMA    shift and go to state 81
+    OPERADORSUBTRACAO shift and go to state 80
+
+
+state 125
+
+    (52) desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .
+    (54) addexpr -> addexpr . OPERADORSOMA mulexpr
+    (55) addexpr -> addexpr . OPERADORSUBTRACAO mulexpr
+
+    COMPARACAOMENOR reduce using rule 52 (desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .)
+    COMPARACAOMAIOR reduce using rule 52 (desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 52 (desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 52 (desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .)
+    COMPARACAOIGUAL reduce using rule 52 (desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .)
+    COMPARACAODIFERENTE reduce using rule 52 (desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .)
+    OPERADORLOGICOE reduce using rule 52 (desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .)
+    OPERADORTERNARIO reduce using rule 52 (desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .)
+    OPERADORLOGICOOU reduce using rule 52 (desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .)
+    PONTOEVIRGULA   reduce using rule 52 (desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .)
+    FECHAPARENTESES reduce using rule 52 (desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .)
+    FECHACOLCHETE   reduce using rule 52 (desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .)
+    VIRGULA         reduce using rule 52 (desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .)
+    DOISPONTOS      reduce using rule 52 (desigexpr -> desigexpr COMPARACAOMENOROUIGUAL addexpr .)
+    OPERADORSOMA    shift and go to state 81
+    OPERADORSUBTRACAO shift and go to state 80
+
+
+state 126
+
+    (49) desigexpr -> desigexpr COMPARACAOMENOR addexpr .
+    (54) addexpr -> addexpr . OPERADORSOMA mulexpr
+    (55) addexpr -> addexpr . OPERADORSUBTRACAO mulexpr
+
+    COMPARACAOMENOR reduce using rule 49 (desigexpr -> desigexpr COMPARACAOMENOR addexpr .)
+    COMPARACAOMAIOR reduce using rule 49 (desigexpr -> desigexpr COMPARACAOMENOR addexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 49 (desigexpr -> desigexpr COMPARACAOMENOR addexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 49 (desigexpr -> desigexpr COMPARACAOMENOR addexpr .)
+    COMPARACAOIGUAL reduce using rule 49 (desigexpr -> desigexpr COMPARACAOMENOR addexpr .)
+    COMPARACAODIFERENTE reduce using rule 49 (desigexpr -> desigexpr COMPARACAOMENOR addexpr .)
+    OPERADORLOGICOE reduce using rule 49 (desigexpr -> desigexpr COMPARACAOMENOR addexpr .)
+    OPERADORTERNARIO reduce using rule 49 (desigexpr -> desigexpr COMPARACAOMENOR addexpr .)
+    OPERADORLOGICOOU reduce using rule 49 (desigexpr -> desigexpr COMPARACAOMENOR addexpr .)
+    PONTOEVIRGULA   reduce using rule 49 (desigexpr -> desigexpr COMPARACAOMENOR addexpr .)
+    FECHAPARENTESES reduce using rule 49 (desigexpr -> desigexpr COMPARACAOMENOR addexpr .)
+    FECHACOLCHETE   reduce using rule 49 (desigexpr -> desigexpr COMPARACAOMENOR addexpr .)
+    VIRGULA         reduce using rule 49 (desigexpr -> desigexpr COMPARACAOMENOR addexpr .)
+    DOISPONTOS      reduce using rule 49 (desigexpr -> desigexpr COMPARACAOMENOR addexpr .)
+    OPERADORSOMA    shift and go to state 81
+    OPERADORSUBTRACAO shift and go to state 80
+
+
+state 127
+
+    (30) comando -> ESCREVA expr PONTOEVIRGULA .
+
+    PONTOEVIRGULA   reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    RETORNE         reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    LEIA            reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    ESCREVA         reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    NOVALINHA       reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    SE              reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    ENQUANTO        reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    ABRECHAVES      reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    IDENTIFICADOR   reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    OPERADORSUBTRACAO reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    OPERADORNEGACAO reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    CARACTERECONSTANTE reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    INTEIROCONSTANTE reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    ABREPARENTESES  reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    FECHACHAVES     reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+    SENAO           reduce using rule 30 (comando -> ESCREVA expr PONTOEVIRGULA .)
+
+
+state 128
+
+    (31) comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .
+
+    PONTOEVIRGULA   reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    RETORNE         reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    LEIA            reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    ESCREVA         reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    NOVALINHA       reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    SE              reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    ENQUANTO        reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    ABRECHAVES      reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    IDENTIFICADOR   reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    OPERADORSUBTRACAO reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    OPERADORNEGACAO reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    CARACTERECONSTANTE reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    INTEIROCONSTANTE reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    ABREPARENTESES  reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    FECHACHAVES     reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+    SENAO           reduce using rule 31 (comando -> ESCREVA CADEIACARACTERE PONTOEVIRGULA .)
+
+
+state 129
+
+    (41) condexpr -> orexpr OPERADORTERNARIO expr . DOISPONTOS condexpr
+
+    DOISPONTOS      shift and go to state 146
+
+
+state 130
+
+    (42) orexpr -> orexpr OPERADORLOGICOOU andexpr .
+    (44) andexpr -> andexpr . OPERADORLOGICOE eqexpr
+
+    OPERADORTERNARIO reduce using rule 42 (orexpr -> orexpr OPERADORLOGICOOU andexpr .)
+    OPERADORLOGICOOU reduce using rule 42 (orexpr -> orexpr OPERADORLOGICOOU andexpr .)
+    FECHACOLCHETE   reduce using rule 42 (orexpr -> orexpr OPERADORLOGICOOU andexpr .)
+    PONTOEVIRGULA   reduce using rule 42 (orexpr -> orexpr OPERADORLOGICOOU andexpr .)
+    FECHAPARENTESES reduce using rule 42 (orexpr -> orexpr OPERADORLOGICOOU andexpr .)
+    VIRGULA         reduce using rule 42 (orexpr -> orexpr OPERADORLOGICOOU andexpr .)
+    DOISPONTOS      reduce using rule 42 (orexpr -> orexpr OPERADORLOGICOOU andexpr .)
+    OPERADORLOGICOE shift and go to state 72
+
+
+state 131
+
+    (59) mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .
+
+    OPERADORVEZES   reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    OPERADORDIVISAO reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    OPERADORRESTODIVISAO reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    OPERADORSOMA    reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    OPERADORSUBTRACAO reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    COMPARACAOMENOR reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    COMPARACAOMAIOR reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    COMPARACAOIGUAL reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    COMPARACAODIFERENTE reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    OPERADORLOGICOE reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    OPERADORTERNARIO reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    OPERADORLOGICOOU reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    PONTOEVIRGULA   reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    FECHAPARENTESES reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    FECHACOLCHETE   reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    VIRGULA         reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+    DOISPONTOS      reduce using rule 59 (mulexpr -> mulexpr OPERADORRESTODIVISAO unexpr .)
+
+
+state 132
+
+    (58) mulexpr -> mulexpr OPERADORDIVISAO unexpr .
+
+    OPERADORVEZES   reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    OPERADORDIVISAO reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    OPERADORRESTODIVISAO reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    OPERADORSOMA    reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    OPERADORSUBTRACAO reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    COMPARACAOMENOR reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    COMPARACAOMAIOR reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    COMPARACAOIGUAL reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    COMPARACAODIFERENTE reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    OPERADORLOGICOE reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    OPERADORTERNARIO reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    OPERADORLOGICOOU reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    PONTOEVIRGULA   reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    FECHAPARENTESES reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    FECHACOLCHETE   reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    VIRGULA         reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+    DOISPONTOS      reduce using rule 58 (mulexpr -> mulexpr OPERADORDIVISAO unexpr .)
+
+
+state 133
+
+    (57) mulexpr -> mulexpr OPERADORVEZES unexpr .
+
+    OPERADORVEZES   reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    OPERADORDIVISAO reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    OPERADORRESTODIVISAO reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    OPERADORSOMA    reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    OPERADORSUBTRACAO reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    COMPARACAOMENOR reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    COMPARACAOMAIOR reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    COMPARACAOMENOROUIGUAL reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    COMPARACAOIGUAL reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    COMPARACAODIFERENTE reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    OPERADORLOGICOE reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    OPERADORTERNARIO reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    OPERADORLOGICOOU reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    PONTOEVIRGULA   reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    FECHAPARENTESES reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    FECHACOLCHETE   reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    VIRGULA         reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+    DOISPONTOS      reduce using rule 57 (mulexpr -> mulexpr OPERADORVEZES unexpr .)
+
+
+state 134
+
+    (8) declvar -> VIRGULA IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar .
+
+    PONTOEVIRGULA   reduce using rule 8 (declvar -> VIRGULA IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar .)
+
+
+state 135
+
+    (3) declfuncvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA declfuncvar .
+
+    PROGRAMA        reduce using rule 3 (declfuncvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA declfuncvar .)
+
+
+state 136
+
+    (16) listaparametroscont -> tipo IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE VIRGULA . listaparametroscont
+    (13) listaparametroscont -> . tipo IDENTIFICADOR
+    (14) listaparametroscont -> . tipo IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE
+    (15) listaparametroscont -> . tipo IDENTIFICADOR VIRGULA listaparametroscont
+    (16) listaparametroscont -> . tipo IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE VIRGULA listaparametroscont
+    (22) tipo -> . INTEIRO
+    (23) tipo -> . CARACTERE
+
+    INTEIRO         shift and go to state 2
+    CARACTERE       shift and go to state 4
+
+    tipo                           shift and go to state 20
+    listaparametroscont            shift and go to state 147
+
+state 137
+
+    (20) listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .
+
+    FECHACHAVES     reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+    PONTOEVIRGULA   reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+    RETORNE         reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+    LEIA            reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+    ESCREVA         reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+    NOVALINHA       reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+    SE              reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+    ENQUANTO        reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+    ABRECHAVES      reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+    IDENTIFICADOR   reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+    OPERADORSUBTRACAO reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+    OPERADORNEGACAO reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+    CARACTERECONSTANTE reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+    INTEIROCONSTANTE reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+    ABREPARENTESES  reduce using rule 20 (listadeclvar -> tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar .)
+
+
+state 138
+
+    (21) listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE . declvar PONTOEVIRGULA listadeclvar
+    (7) declvar -> . VIRGULA IDENTIFICADOR declvar
+    (8) declvar -> . VIRGULA IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar
+    (9) declvar -> .
+
+    VIRGULA         shift and go to state 11
+    PONTOEVIRGULA   reduce using rule 9 (declvar -> .)
+
+    declvar                        shift and go to state 148
+
+state 139
+
+    (35) comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES . EXECUTE comando
+
+    EXECUTE         shift and go to state 149
+
+
+state 140
+
+    (68) primexpr -> IDENTIFICADOR ABRECOLCHETE expr . FECHACOLCHETE
+
+    FECHACOLCHETE   shift and go to state 150
+
+
+state 141
+
+    (33) comando -> SE ABREPARENTESES expr FECHAPARENTESES . ENTAO comando
+    (34) comando -> SE ABREPARENTESES expr FECHAPARENTESES . ENTAO comando SENAO comando
+
+    ENTAO           shift and go to state 151
+
+
+state 142
+
+    (64) lvalueexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .
+    (68) primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .
+
+    ATRIBUICAO      reduce using rule 64 (lvalueexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORVEZES   reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORDIVISAO reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORRESTODIVISAO reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORSOMA    reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORSUBTRACAO reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    COMPARACAOMENOR reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    COMPARACAOMAIOR reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    COMPARACAOMENOROUIGUAL reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    COMPARACAOIGUAL reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    COMPARACAODIFERENTE reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORLOGICOE reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORTERNARIO reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORLOGICOOU reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    FECHAPARENTESES reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    FECHACOLCHETE   reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    PONTOEVIRGULA   reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    VIRGULA         reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    DOISPONTOS      reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+
+
+state 143
+
+    (66) primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .
+
+    OPERADORVEZES   reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    OPERADORDIVISAO reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    OPERADORRESTODIVISAO reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    OPERADORSOMA    reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    OPERADORSUBTRACAO reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    COMPARACAOMENOR reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    COMPARACAOMAIOR reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    COMPARACAOMENOROUIGUAL reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    COMPARACAOIGUAL reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    COMPARACAODIFERENTE reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    OPERADORLOGICOE reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    OPERADORTERNARIO reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    OPERADORLOGICOOU reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    FECHAPARENTESES reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    PONTOEVIRGULA   reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    FECHACOLCHETE   reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    VIRGULA         reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+    DOISPONTOS      reduce using rule 66 (primexpr -> IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES .)
+
+
+state 144
+
+    (74) listexpr -> listexpr VIRGULA . assignexpr
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 152
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    desigexpr                      shift and go to state 53
+
+state 145
+
+    (64) lvalueexpr -> IDENTIFICADOR ABRECOLCHETE expr . FECHACOLCHETE
+
+    FECHACOLCHETE   shift and go to state 153
+
+
+state 146
+
+    (41) condexpr -> orexpr OPERADORTERNARIO expr DOISPONTOS . condexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    IDENTIFICADOR   shift and go to state 70
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    addexpr                        shift and go to state 47
+    condexpr                       shift and go to state 154
+    andexpr                        shift and go to state 36
+    unexpr                         shift and go to state 57
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    mulexpr                        shift and go to state 60
+    desigexpr                      shift and go to state 53
+
+state 147
+
+    (16) listaparametroscont -> tipo IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE VIRGULA listaparametroscont .
+
+    FECHAPARENTESES reduce using rule 16 (listaparametroscont -> tipo IDENTIFICADOR ABRECOLCHETE FECHACOLCHETE VIRGULA listaparametroscont .)
+
+
+state 148
+
+    (21) listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar . PONTOEVIRGULA listadeclvar
+
+    PONTOEVIRGULA   shift and go to state 155
+
+
+state 149
+
+    (35) comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE . comando
+    (26) comando -> . PONTOEVIRGULA
+    (27) comando -> . expr PONTOEVIRGULA
+    (28) comando -> . RETORNE expr PONTOEVIRGULA
+    (29) comando -> . LEIA lvalueexpr PONTOEVIRGULA
+    (30) comando -> . ESCREVA expr PONTOEVIRGULA
+    (31) comando -> . ESCREVA CADEIACARACTERE PONTOEVIRGULA
+    (32) comando -> . NOVALINHA PONTOEVIRGULA
+    (33) comando -> . SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando
+    (34) comando -> . SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando
+    (35) comando -> . ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando
+    (36) comando -> . bloco
+    (37) expr -> . assignexpr
+    (17) bloco -> . ABRECHAVES listadeclvar listacomando FECHACHAVES
+    (18) bloco -> . ABRECHAVES listadeclvar FECHACHAVES
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    PONTOEVIRGULA   shift and go to state 46
+    RETORNE         shift and go to state 48
+    LEIA            shift and go to state 49
+    ESCREVA         shift and go to state 55
+    NOVALINHA       shift and go to state 39
+    SE              shift and go to state 40
+    ENQUANTO        shift and go to state 33
+    ABRECHAVES      shift and go to state 14
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 54
+    bloco                          shift and go to state 38
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    unexpr                         shift and go to state 57
+    expr                           shift and go to state 58
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    comando                        shift and go to state 156
+    desigexpr                      shift and go to state 53
+
+state 150
+
+    (68) primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .
+
+    OPERADORVEZES   reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORDIVISAO reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORRESTODIVISAO reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORSOMA    reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORSUBTRACAO reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    COMPARACAOMENOR reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    COMPARACAOMAIOR reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    COMPARACAOMAIOROUIGUAL reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    COMPARACAOMENOROUIGUAL reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    COMPARACAOIGUAL reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    COMPARACAODIFERENTE reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORLOGICOE reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORTERNARIO reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    OPERADORLOGICOOU reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    PONTOEVIRGULA   reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    FECHAPARENTESES reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    FECHACOLCHETE   reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    VIRGULA         reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+    DOISPONTOS      reduce using rule 68 (primexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+
+
+state 151
+
+    (33) comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO . comando
+    (34) comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO . comando SENAO comando
+    (26) comando -> . PONTOEVIRGULA
+    (27) comando -> . expr PONTOEVIRGULA
+    (28) comando -> . RETORNE expr PONTOEVIRGULA
+    (29) comando -> . LEIA lvalueexpr PONTOEVIRGULA
+    (30) comando -> . ESCREVA expr PONTOEVIRGULA
+    (31) comando -> . ESCREVA CADEIACARACTERE PONTOEVIRGULA
+    (32) comando -> . NOVALINHA PONTOEVIRGULA
+    (33) comando -> . SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando
+    (34) comando -> . SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando
+    (35) comando -> . ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando
+    (36) comando -> . bloco
+    (37) expr -> . assignexpr
+    (17) bloco -> . ABRECHAVES listadeclvar listacomando FECHACHAVES
+    (18) bloco -> . ABRECHAVES listadeclvar FECHACHAVES
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    PONTOEVIRGULA   shift and go to state 46
+    RETORNE         shift and go to state 48
+    LEIA            shift and go to state 49
+    ESCREVA         shift and go to state 55
+    NOVALINHA       shift and go to state 39
+    SE              shift and go to state 40
+    ENQUANTO        shift and go to state 33
+    ABRECHAVES      shift and go to state 14
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 54
+    bloco                          shift and go to state 38
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    unexpr                         shift and go to state 57
+    expr                           shift and go to state 58
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    comando                        shift and go to state 157
+    desigexpr                      shift and go to state 53
+
+state 152
+
+    (74) listexpr -> listexpr VIRGULA assignexpr .
+
+    FECHAPARENTESES reduce using rule 74 (listexpr -> listexpr VIRGULA assignexpr .)
+    VIRGULA         reduce using rule 74 (listexpr -> listexpr VIRGULA assignexpr .)
+
+
+state 153
+
+    (64) lvalueexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .
+
+    PONTOEVIRGULA   reduce using rule 64 (lvalueexpr -> IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE .)
+
+
+state 154
+
+    (41) condexpr -> orexpr OPERADORTERNARIO expr DOISPONTOS condexpr .
+
+    FECHACOLCHETE   reduce using rule 41 (condexpr -> orexpr OPERADORTERNARIO expr DOISPONTOS condexpr .)
+    PONTOEVIRGULA   reduce using rule 41 (condexpr -> orexpr OPERADORTERNARIO expr DOISPONTOS condexpr .)
+    FECHAPARENTESES reduce using rule 41 (condexpr -> orexpr OPERADORTERNARIO expr DOISPONTOS condexpr .)
+    VIRGULA         reduce using rule 41 (condexpr -> orexpr OPERADORTERNARIO expr DOISPONTOS condexpr .)
+    DOISPONTOS      reduce using rule 41 (condexpr -> orexpr OPERADORTERNARIO expr DOISPONTOS condexpr .)
+
+
+state 155
+
+    (21) listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA . listadeclvar
+    (19) listadeclvar -> .
+    (20) listadeclvar -> . tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar
+    (21) listadeclvar -> . tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar
+    (22) tipo -> . INTEIRO
+    (23) tipo -> . CARACTERE
+
+    FECHACHAVES     reduce using rule 19 (listadeclvar -> .)
+    PONTOEVIRGULA   reduce using rule 19 (listadeclvar -> .)
+    RETORNE         reduce using rule 19 (listadeclvar -> .)
+    LEIA            reduce using rule 19 (listadeclvar -> .)
+    ESCREVA         reduce using rule 19 (listadeclvar -> .)
+    NOVALINHA       reduce using rule 19 (listadeclvar -> .)
+    SE              reduce using rule 19 (listadeclvar -> .)
+    ENQUANTO        reduce using rule 19 (listadeclvar -> .)
+    ABRECHAVES      reduce using rule 19 (listadeclvar -> .)
+    IDENTIFICADOR   reduce using rule 19 (listadeclvar -> .)
+    OPERADORSUBTRACAO reduce using rule 19 (listadeclvar -> .)
+    OPERADORNEGACAO reduce using rule 19 (listadeclvar -> .)
+    CARACTERECONSTANTE reduce using rule 19 (listadeclvar -> .)
+    INTEIROCONSTANTE reduce using rule 19 (listadeclvar -> .)
+    ABREPARENTESES  reduce using rule 19 (listadeclvar -> .)
+    INTEIRO         shift and go to state 2
+    CARACTERE       shift and go to state 4
+
+    tipo                           shift and go to state 23
+    listadeclvar                   shift and go to state 158
+
+state 156
+
+    (35) comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .
+
+    PONTOEVIRGULA   reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    RETORNE         reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    LEIA            reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    ESCREVA         reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    NOVALINHA       reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    SE              reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    ENQUANTO        reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    ABRECHAVES      reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    IDENTIFICADOR   reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    OPERADORSUBTRACAO reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    OPERADORNEGACAO reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    CARACTERECONSTANTE reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    INTEIROCONSTANTE reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    ABREPARENTESES  reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    FECHACHAVES     reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+    SENAO           reduce using rule 35 (comando -> ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando .)
+
+
+state 157
+
+    (33) comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .
+    (34) comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando . SENAO comando
+
+  ! shift/reduce conflict for SENAO resolved as shift
+    PONTOEVIRGULA   reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    RETORNE         reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    LEIA            reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    ESCREVA         reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    NOVALINHA       reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    SE              reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    ENQUANTO        reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    ABRECHAVES      reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    IDENTIFICADOR   reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    OPERADORSUBTRACAO reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    OPERADORNEGACAO reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    CARACTERECONSTANTE reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    INTEIROCONSTANTE reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    ABREPARENTESES  reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    FECHACHAVES     reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .)
+    SENAO           shift and go to state 159
+
+  ! SENAO           [ reduce using rule 33 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando .) ]
+
+
+state 158
+
+    (21) listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .
+
+    FECHACHAVES     reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+    PONTOEVIRGULA   reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+    RETORNE         reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+    LEIA            reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+    ESCREVA         reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+    NOVALINHA       reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+    SE              reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+    ENQUANTO        reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+    ABRECHAVES      reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+    IDENTIFICADOR   reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+    OPERADORSUBTRACAO reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+    OPERADORNEGACAO reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+    CARACTERECONSTANTE reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+    INTEIROCONSTANTE reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+    ABREPARENTESES  reduce using rule 21 (listadeclvar -> tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar .)
+
+
+state 159
+
+    (34) comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO . comando
+    (26) comando -> . PONTOEVIRGULA
+    (27) comando -> . expr PONTOEVIRGULA
+    (28) comando -> . RETORNE expr PONTOEVIRGULA
+    (29) comando -> . LEIA lvalueexpr PONTOEVIRGULA
+    (30) comando -> . ESCREVA expr PONTOEVIRGULA
+    (31) comando -> . ESCREVA CADEIACARACTERE PONTOEVIRGULA
+    (32) comando -> . NOVALINHA PONTOEVIRGULA
+    (33) comando -> . SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando
+    (34) comando -> . SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando
+    (35) comando -> . ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE comando
+    (36) comando -> . bloco
+    (37) expr -> . assignexpr
+    (17) bloco -> . ABRECHAVES listadeclvar listacomando FECHACHAVES
+    (18) bloco -> . ABRECHAVES listadeclvar FECHACHAVES
+    (38) assignexpr -> . condexpr
+    (39) assignexpr -> . lvalueexpr ATRIBUICAO assignexpr
+    (40) condexpr -> . orexpr
+    (41) condexpr -> . orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
+    (64) lvalueexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (65) lvalueexpr -> . IDENTIFICADOR
+    (42) orexpr -> . orexpr OPERADORLOGICOOU andexpr
+    (43) orexpr -> . andexpr
+    (44) andexpr -> . andexpr OPERADORLOGICOE eqexpr
+    (45) andexpr -> . eqexpr
+    (46) eqexpr -> . eqexpr COMPARACAOIGUAL desigexpr
+    (47) eqexpr -> . eqexpr COMPARACAODIFERENTE desigexpr
+    (48) eqexpr -> . desigexpr
+    (49) desigexpr -> . desigexpr COMPARACAOMENOR addexpr
+    (50) desigexpr -> . desigexpr COMPARACAOMAIOR addexpr
+    (51) desigexpr -> . desigexpr COMPARACAOMAIOROUIGUAL addexpr
+    (52) desigexpr -> . desigexpr COMPARACAOMENOROUIGUAL addexpr
+    (53) desigexpr -> . addexpr
+    (54) addexpr -> . addexpr OPERADORSOMA mulexpr
+    (55) addexpr -> . addexpr OPERADORSUBTRACAO mulexpr
+    (56) addexpr -> . mulexpr
+    (57) mulexpr -> . mulexpr OPERADORVEZES unexpr
+    (58) mulexpr -> . mulexpr OPERADORDIVISAO unexpr
+    (59) mulexpr -> . mulexpr OPERADORRESTODIVISAO unexpr
+    (60) mulexpr -> . unexpr
+    (61) unexpr -> . OPERADORSUBTRACAO primexpr
+    (62) unexpr -> . OPERADORNEGACAO primexpr
+    (63) unexpr -> . primexpr
+    (66) primexpr -> . IDENTIFICADOR ABREPARENTESES listexpr FECHAPARENTESES
+    (67) primexpr -> . IDENTIFICADOR ABREPARENTESES FECHAPARENTESES
+    (68) primexpr -> . IDENTIFICADOR ABRECOLCHETE expr FECHACOLCHETE
+    (69) primexpr -> . IDENTIFICADOR
+    (70) primexpr -> . CARACTERECONSTANTE
+    (71) primexpr -> . INTEIROCONSTANTE
+    (72) primexpr -> . ABREPARENTESES expr FECHAPARENTESES
+
+    PONTOEVIRGULA   shift and go to state 46
+    RETORNE         shift and go to state 48
+    LEIA            shift and go to state 49
+    ESCREVA         shift and go to state 55
+    NOVALINHA       shift and go to state 39
+    SE              shift and go to state 40
+    ENQUANTO        shift and go to state 33
+    ABRECHAVES      shift and go to state 14
+    IDENTIFICADOR   shift and go to state 43
+    OPERADORSUBTRACAO shift and go to state 45
+    OPERADORNEGACAO shift and go to state 34
+    CARACTERECONSTANTE shift and go to state 35
+    INTEIROCONSTANTE shift and go to state 44
+    ABREPARENTESES  shift and go to state 52
+
+    eqexpr                         shift and go to state 37
+    lvalueexpr                     shift and go to state 32
+    condexpr                       shift and go to state 51
+    assignexpr                     shift and go to state 54
+    bloco                          shift and go to state 38
+    primexpr                       shift and go to state 41
+    orexpr                         shift and go to state 56
+    unexpr                         shift and go to state 57
+    expr                           shift and go to state 58
+    addexpr                        shift and go to state 47
+    andexpr                        shift and go to state 36
+    mulexpr                        shift and go to state 60
+    comando                        shift and go to state 160
+    desigexpr                      shift and go to state 53
+
+state 160
+
+    (34) comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .
+
+    PONTOEVIRGULA   reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    RETORNE         reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    LEIA            reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    ESCREVA         reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    NOVALINHA       reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    SE              reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    ENQUANTO        reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    ABRECHAVES      reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    IDENTIFICADOR   reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    OPERADORSUBTRACAO reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    OPERADORNEGACAO reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    CARACTERECONSTANTE reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    INTEIROCONSTANTE reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    ABREPARENTESES  reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    FECHACHAVES     reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+    SENAO           reduce using rule 34 (comando -> SE ABREPARENTESES expr FECHAPARENTESES ENTAO comando SENAO comando .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for SENAO in state 157 resolved as shift
