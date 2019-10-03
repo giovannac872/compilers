@@ -30,7 +30,6 @@ tokens = [
     'IDENTIFICADOR',
     'error',
     'CADEIACARACTERE',
-    'EMPTYSPACE',
     'PONTOEVIRGULA',
     'ABRECOLCHETE',
     'FECHACOLCHETE',
@@ -77,7 +76,7 @@ t_COMPARACAOMENOR = r'<'
 t_COMPARACAOMAIOROUIGUAL = r'>='
 t_COMPARACAOMENOROUIGUAL = r'<='
 
-
+'''
 t_PROGRAMA = r'programa'
 t_RETORNE = r'retorne'
 t_LEIA = r'leia'
@@ -89,7 +88,7 @@ t_ENQUANTO = r'enquanto'
 t_EXECUTE = r'execute'
 t_OPERADORLOGICOOU = r'ou'
 t_OPERADORLOGICOE = r'e'
-
+'''
 
 def t_INTEIRO(t):
     r'\d+'
@@ -100,7 +99,7 @@ def t_NOVALINHA(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-#t_ignore = r' \t'
+t_ignore = ' \t'
 
 
 def t_IDENTIFICADOR(t):
@@ -112,7 +111,11 @@ def t_IDENTIFICADOR(t):
 
 
 def t_CADEIACARACTERE(t):
-    r'\".*\"'
+    r'\"[^\"]*\"'
+    
+    if t.value.find("\n") != -1:
+        print("Erro:Cadeia de caractere ocupa mais de uma linha, linha:%d" % t.lexer.lineno)
+    
     return t
 
 def t_CARACTERE(t):
@@ -125,24 +128,29 @@ def t_COMENTARIOUMALINHA(t):
     pass 
 
 def t_COMENTARIOMAISUMALINHA(t):
-    r'/\*(.|\n)* \*/'
-    t.lexer.lineno += len(t.value)
+    r'(/\*[^(\*/)]*(\*/)?)'
+    print(t)
+    if t.value[len(t.value)-1] != '/' and t.value[len(t.value)-2] != '*':
+        print("Erro:Comentario nao termina, linha: %d" % t.lexer.lineno)
+        exit()
+    t.lexer.lineno += t.value.count('\n')
     pass
 
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
-    t.lexer.skip(1)
+    print("Erro:Caractere invalido " +  "'" + t.value[0] + "'" + "linha " + str(t.lexer.lineno))
+    exit() 
 
-
+'''
 def t_EMPTYSPACE(t):
     r'\s'
     return t
 
-
+'''
 
 lexer = lex.lex()
+arquivo = open("entrada.txt","r").read()
 
-lexer.input("/**/")
+lexer.input(arquivo)
 #arquivo.close()
 #print(palavrasReservadas['programa'])
 teste = "programa"
