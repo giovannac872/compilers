@@ -22,7 +22,6 @@ def p_declfuncvar(p):
         aux = None
         flagRepetido = False
         dicionarioVariaveisEscopo = {}
-        #dicionarioVariaveisFuncao = {}
         # e uma variavel
         if p[3] != "[":
             aux = Classes.NoArvoreVariaveis()
@@ -65,22 +64,6 @@ def p_declfuncvar(p):
         aux = Classes.NoArvoreFuncaoAssinatura(tipoRetornoFuncao= str(p[1]), nomeFuncao= str(p[2]), listaParametros= p[3])
         #print("O tamanho e" +str(len(p)))
         #print(p[3])
-        if p[4] != None:
-            dicionarioVariaveisEscopo = p[4]
-        
-            variavelAux = p[4]
-            variavelAux = list(variavelAux)
-        
-            for incremento in variavelAux:
-                #pegar o caso de uma variavel global ter sido declarada antes e depois da definicao de uma funcao
-                if incremento in dicionarioVariaveisEscopo:
-                    print("Erro na linha:" + str(p.lineno(2)) + " variavel: " + incremento + " ja declarada")
-                exit()
-        '''
-        if p[1] in dicionarioVariaveisEscopo:
-            print("Erro na linha:" + str(p.lineno(2)) + " variavel: " + str(p[2]) + " ja declarada")
-            exit()
-        '''      
 def p_declprog(p):
     """
     declprog : PROGRAMA bloco
@@ -123,19 +106,9 @@ def p_declfunc(p):
     """
     declfunc : ABREPARENTESES listaparametros FECHAPARENTESES bloco
     """
+    
     if len(p) > 1:
-        dicionarioVariaiveisFuncaoAssinatura = {}
-        dicionarioVariaveisEscopo = {}
-        if p[2] != None:
-            dicionarioVariaiveisFuncaoAssinatura = p[2]
-            if p[4] != None:
-                dicionarioVariaveisEscopo = p[4]
-                for valor in dicionarioVariaveisEscopo:
-                    if valor.getTipo() in dicionarioVariaiveisFuncaoAssinatura:
-                        print("Erro: variavel " + str(valor) +  " nao pode ser declarada pois ja esta presente no parametro da funcao")
-                        exit()
-
-
+        p[0] = p[2]
     
 
 def p_listaparametros(p):
@@ -210,62 +183,12 @@ def p_bloco(p):
     bloco : ABRECHAVES listadeclvar FECHACHAVES
     """
 
-    if len(p) > 4:
-        print("")
-    elif len(p) <= 4:
-        p[0] = p[2]
-    else:
-        p[0] = None
-
 def p_listadeclvar(p):
     """
     listadeclvar : 
     listadeclvar : tipo IDENTIFICADOR declvar PONTOEVIRGULA listadeclvar
     listadeclvar : tipo IDENTIFICADOR ABRECOLCHETE INTEIROCONSTANTE FECHACOLCHETE declvar PONTOEVIRGULA listadeclvar
     """
-
-    if len(p) > 1:
-        aux = None
-        dicionarioVariaveisEscopo = {}
-        flagRepetido = False
-        #variavel comum com recursao
-        if len(p) <= 6:
-            aux = Classes.NoArvoreVariaveis()
-            if p[3] != None:
-                dicionarioAux = p[3]
-                for valor in dicionarioAux:
-                    dicionarioAux.setTipo(str(p[1]))
-                    if valor in dicionarioAux:
-                        print("Erro na linha:" + str(p.lineno(2)) + " variavel: " + valor + " ja declarada")
-                        flagRepetido = True
-                        break
-                dicionarioVariaveisEscopo.update(dicionarioAux)
-            if p[5] != None:
-                dicionarioVariaveisEscopo  = p[5]
-        #variavel vetor
-        elif len(p) > 6:
-            aux = Classes.NoArvoreVariaveis(vetor=True, tamanhoVetor=p[4])
-            if p[6] != None:
-                dicionarioAux = p[6]
-                for valor in dicionarioAux:
-                    dicionarioAux.setTipo(str(p[1]))
-                    if valor in dicionarioAux:
-                        print("Erro na linha:" + str(p.lineno(2)) + " variavel: " + valor + " ja declarada")
-                        flagRepetido = True
-                        break
-                dicionarioVariaveisEscopo.update(dicionarioAux)
-            if p[8] != None:
-                dicionarioVariaveisEscopo = p[8]
-        
-        if p[1] in dicionarioVariaveisEscopo or flagRepetido == True:
-            print("Erro na linha:" + str(p.lineno(2)) + " variavel: " + str(p[1]) + " ja declarada")
-            exit()
-        else:
-            dicionarioVariaveisEscopo[str(p[2])] = aux
-        p[0]= dicionarioVariaveisEscopo
-    else:
-        p[0]= None
-
 
 def p_tipo(p):
     """
@@ -295,23 +218,10 @@ def p_comando(p):
     comando : bloco
     """
 
-    if len(p) > 1:
-        aux = Classes.Comando()
-        if p[1] == ";":
-            aux.adicionaElementoLadoDireito(";")
-        
-        
-
-
-
-
 def p_expr(p):
     """
     expr : assignexpr
     """
-
-    if len(p) > 1:
-        p[0] = p[1]
 
 def p_assignexpr(p):
     """
@@ -319,20 +229,11 @@ def p_assignexpr(p):
     assignexpr : lvalueexpr ATRIBUICAO assignexpr
     """
 
-    if len(p) > 1:
-        if len(p) <= 2:
-            p[0] = p[1]
-
 def p_condexpr(p):
     """
     condexpr : orexpr
     condexpr : orexpr OPERADORTERNARIO expr DOISPONTOS condexpr
     """
-
-    if len(p) > 1:
-        if len(p) <= 2:
-            p[0] = p[1]
-
 
 def p_orexpr(p):
     """
@@ -340,21 +241,11 @@ def p_orexpr(p):
     orexpr : andexpr
     """
 
-    if len(p) > 1:
-        if len(p) <= 2:
-            p[0] = p[1]
-
-
-
 def p_andexpr(p):
     """
     andexpr : andexpr OPERADORLOGICOE eqexpr
     andexpr : eqexpr
     """
-    if len(p) > 1:
-        if len(p) <= 2:
-            p[0] = p[1]
-
 
 def p_eqexpr(p):
     """

@@ -1,0 +1,10 @@
+PARA A EXECUÇÃO DESSE TRABALHO INSTALE O AMBIENTE VIRTUALENV, LINK TUTORIAL: https://pythonacademy.com.br/blog/python-e-virtualenv-como-programar-em-ambientes-virtuais
+
+Os pacotes necessarios já estão configurados no ambiente virtual
+Para a execução do ambiente virtual na pasta compilers execute:
+source bin/activate
+
+o arquivo de entrada é o entrada.txt (qualquer alteração de entrada terá que ser feita nele)
+para executar use python mySintatic.py
+
+

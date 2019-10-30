@@ -1,0 +1,8 @@
+int n, x[10], v;
+
+int valor(int x[], int a[]){
+
+}
+programa{
+
+}

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import ply.lex as lex
 
 
@@ -102,7 +103,7 @@ def t_NOVALINHA(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-t_ignore = ' \t'
+t_ignore = ' \t\r'
 
 
 def t_IDENTIFICADOR(t):
@@ -116,13 +117,16 @@ def t_IDENTIFICADOR(t):
 def t_CADEIACARACTERE(t):
     r'\"[^\"]*\"'
     
+    t.value = t.value[1:-1]
     if t.value.find("\n") != -1:
         print("Erro:Cadeia de caractere ocupa mais de uma linha, linha:%d" % t.lexer.lineno)
+        exit()
     
     return t
 
 def t_CARACTERECONSTANTE(t):
     r"\'.\'"
+    t.value = t.value[1:-1]
     return t
 
 def t_COMENTARIOUMALINHA(t):
@@ -153,17 +157,17 @@ def t_EMPTYSPACE(t):
 lexer = lex.lex()
 '''
 arquivo = open("entrada.txt","r").read()
+'''
 
-lexer.input(arquivo)
+#lexer.input("a = 2 + 2;")
 #arquivo.close()
 
 #print(palavrasReservadas['programa'])
 #teste = "programa"
 #print(palavrasReservadas[teste])
-
+lexer.input(open("entrada.txt","r").read())
 while True:
     tok = lexer.token()
     if not tok:
         break
     print(tok)
-'''
