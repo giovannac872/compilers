@@ -1,4 +1,25 @@
+class NoArvoreVetores(object):
+    
+    def __init__(self, valor = None, tipo= None):
+        self.valor = valor
+        self.tipo = tipo
+    
+    def getValor(self):
+        return self.valor
+    
+    def setValor(self, valor):
+        self.valor = valor
+    
+    def getTipo(self):
+        return self.tipo
+    
+    def setTipo(self, tipo):
+        self.tipo = tipo
+
+
+
 class NoArvoreVariaveis(object):
+    #lista de objetos dos demais vetores
     valor = []
     tamanhoVetor = None
     def __init__(self, tipo = None, vetor = False,  tamanhoVetor = 1):
@@ -12,15 +33,59 @@ class NoArvoreVariaveis(object):
 
     def getTipo(self):
         return self.tipo
+    
+    def getTamanhoVetor(self):
+        return self.tamanhoVetor
+
+    
+    def getElementoVetor(self, posicao):
+        if posicao < self.tamanhoVetor and posicao >= 0:
+            return self.valor[posicao]
+    
+    #def setElementoVetor(self, posicao):
+    #   if 
+
+
+
+
+    def iniciaVetor(self):
+        if self.eVetor == True:
+            for iterador in range(len(self.tamanhoVetor)):
+                self.valor[iterador] = NoArvoreVetores(self.tipo)
+
+    def getValor(self, posicao = None):
+        if self.eVetor == False:
+            return self.valor[0]
+        elif self.eVetor == True and posicao < self.tamanhoVetor and posicao >= 0:
+            return self.valor[posicao].getValor()
+
+    def setValor(self, valor = None, posicao = None):
+        if self.eVetor == False:
+            self.valor[0] = valor
+        elif self.eVetor == True and posicao < self.tamanhoVetor and posicao >= 0:
+            self.valor[posicao].setValor(valor)
+            
+
+
+    '''
+    def getValor(self, posicao=None):
+        #atributo e um vetor
+        if self.eVetor == True and posicao < self.tamanhoVetor and posicao >= 0:
+            return self.valor[posicao]
+        #atributo e uma  variavel
+        elif self.eVetor == False and posicao == None:
+            return self.valor[0]
 
 
     def setValor(self, valor, posicao = 0):
-        if(self.eVetor == False): #analisando lista de variaveis
+        if(self.eVetor == False): #variaveis
             self.valor.insert(0, valor)
-        else:
+        else: #vetores
             if posicao < self.tamanhoVetor and posicao >=0 :
                 self.valor.insert(posicao, valor)
-        
+    '''
+
+
     
 class NoArvoreFuncaoAssinatura(object):
     #lista parametros e uma lista de objetos NoArvoreVariaveis
@@ -39,6 +104,17 @@ class NoArvoreFuncaoAssinatura(object):
         return self.listaParametros[posicaoParametro]
 
 
+class Escopo(object):
+    Escopo = {}
+
+    def __init__(self, escopo = None):
+        self.Escopo = None
+    
+
+    def criaEscopo(self, nomeEscopo, variaveisEscopo):
+        
+
+'''
 class Comando(object):
     ladoEsquerdoComando = []
     ladoDireitoComando = []
@@ -51,3 +127,4 @@ class Comando(object):
 
     def adicionaElementoLadoDireito(self, elemento):
         self.ladoDireitoComando.append(elemento)
+'''
