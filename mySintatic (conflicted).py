@@ -1,14 +1,11 @@
 import ply.lex as lex
 import ply.yacc as sintatic
 from myLexer import tokens, lexer
-from copy import deepcopy
 import classes as Classes
 
 
 Escopo = {}
 dicionarioNomeFuncao = {}
-EscopoGlobal = Classes.ArvoreEscopo(None, None, None)
-EscopoAtual = deepcopy(EscopoGlobal)
 
 def insereEscopo(nomeEscopo, variaveisEscopo):
     global Escopo
@@ -30,9 +27,8 @@ def p_programa(p):
     """
     programa : declfuncvar declprog
     """
-    global EscopoGlobal
-
     
+    insereEscopo('global', p[1])
 
 dicionarioVariaveisEscopo = {}
 #aqui só há variáveis no escopo global e no escopo de funcoes
@@ -43,7 +39,7 @@ def p_declfuncvar(p):
     declfuncvar : tipo IDENTIFICADOR declfunc declfuncvar
     declfuncvar : 
     """
-    global EscopoGlobal
+    global Escopo
     global dicionarioNomeFuncao
     #print(len(p))
     #print(p[0])
@@ -130,7 +126,7 @@ def p_declfuncvar(p):
         #print("Valor fim dicionario\n")
         #print(dicionarioVariaveisEscopo)
         p[0] = dicionarioVariaveisEscopo
-        EscopoGlobal.setEscopo(p[0])
+        
         #insereEscopo(nomeEscopo = 'global', variaveisEscopo = dicionarioVariaveisEscopo)
 
         #print(dicionarioVariaveisEscopo.values())
@@ -156,7 +152,7 @@ def p_declfuncvar(p):
                 #pegar o caso de uma variavel global ter sido declarada antes e depois da definicao de uma funcao
                 if incremento in dicionarioVariaveisEscopo:
                     print("Erro na linha:" + str(p.lineno(2)) + " variavel: " + incremento + " ja declarada")
-                    exit()
+                exit()
         
             dicionarioVariaveisEscopo.update(p[4])
         
@@ -179,9 +175,6 @@ def p_declprog(p):
     """
     declprog : PROGRAMA bloco
     """
-
-    if len(p) > 1:
-        p[0] = p[2]
 
 def p_declvar(p):
     """
@@ -225,25 +218,8 @@ def p_declfunc(p):
     declfunc : ABREPARENTESES listaparametros FECHAPARENTESES bloco
     """
     if len(p) > 1:
-        dicionarioVariaveisFuncaoAssinatura = {}
-        bloco = None
-
-        if p[2] != None:
-            dicionarioVariaveisFuncaoAssinatura.update(p[2])
-            bloco = p[4]
-            #nao tem comando apenas declaracao de variaveis
-            #if bloco['listacomando'] == None: 
-            #print(bloco)
-            if bloco['listadeclvar'] != None:
-                for valor in dicionarioVariaveisFuncaoAssinatura:
-                    if valor in bloco['listadeclvar']:
-                        print("Erro na linha:" + str(p.lineno(2)) + " variavel: " + valor + " ja declarada na assinatura da funcao")
-                        exit()
-            
-                
-
-                
-        
+        dicionarioVariaiveisFuncaoAssinatura = {}
+        dicionariVariaveisoEscopoFuncao = {}
         
 
 
@@ -324,28 +300,13 @@ def p_bloco(p):
     bloco : ABRECHAVES listadeclvar listacomando FECHACHAVES
     bloco : ABRECHAVES listadeclvar FECHACHAVES
     """
-    global EscopoAtual
 
     if len(p) > 4:
-        p[0] = {'listadeclvar': p[2], 'listacomando': p[3]}
-        filho = Classes.ArvoreEscopo({'listadeclvar': p[2], 'listacomando': p[3]}, EscopoAtual, None)
-        EscopoAtual.adicionaFilho(filho)
-        #print("ii")
-        #print(EscopoAtual.getFilho())
-        EscopoAtual = deepcopy(filho)
-        #print(EscopoAtual)
-        #print(filho.getPai())
-
+        print("")
     elif len(p) <= 4:
-        p[0] = {'listadeclvar': p[2], 'listacomando': None}
-        filho = Classes.ArvoreEscopo({'listadeclvar': p[2], 'listacomando': p[3]}, EscopoAtual, None)
-        EscopoAtual.adicionaFilho(filho)
-        EscopoAtual = deepcopy(filho)
-
+        p[0] = p[2]
     else:
         p[0] = None
-    
-    #print(EscopoAtual.getEscopo())
 
 def p_listadeclvar(p):
     """
@@ -356,51 +317,43 @@ def p_listadeclvar(p):
 
     if len(p) > 1:
         aux = None
-        dicionarioVariaveisEscopoLocal = {}
+        dicionarioVariaveisEscopo = {}
         flagRepetido = False
         #variavel comum com recursao
         if len(p) <= 6:
-            aux = Classes.NoArvoreVariaveis(tipo=str(p[1]))
+            aux = Classes.NoArvoreVariaveis()
             if p[3] != None:
                 dicionarioAux = p[3]
                 for valor in dicionarioAux:
                     dicionarioAux.setTipo(str(p[1]))
                     if valor in dicionarioAux:
-                        #print("Erro na linha:" + str(p.lineno(2)) + " variavel: " + valor + " ja declarada")
+                        print("Erro na linha:" + str(p.lineno(2)) + " variavel: " + valor + " ja declarada")
                         flagRepetido = True
                         break
-                dicionarioVariaveisEscopoLocal.update(dicionarioAux)
-            
+                dicionarioVariaveisEscopo.update(dicionarioAux)
             if p[5] != None:
-                dicionarioVariaveisEscopoLocal.update(p[5])
-            
-            #p[0] = dicionarioVariaveisEscopoLocal
-
-        #variavel vetor com recursao
+                dicionarioVariaveisEscopo  = p[5]
+        #variavel vetor
         elif len(p) > 6:
-            aux = Classes.NoArvoreVariaveis(vetor=True, tamanhoVetor=p[4], tipo=str(p[1]))
-            aux.iniciaVetor()
+            aux = Classes.NoArvoreVariaveis(vetor=True, tamanhoVetor=p[4])
             if p[6] != None:
                 dicionarioAux = p[6]
                 for valor in dicionarioAux:
                     dicionarioAux.setTipo(str(p[1]))
                     if valor in dicionarioAux:
-                        #print("Erro na linha:" + str(p.lineno(2)) + " variavel: " + valor + " ja declarada")
+                        print("Erro na linha:" + str(p.lineno(2)) + " variavel: " + valor + " ja declarada")
                         flagRepetido = True
                         break
-                dicionarioVariaveisEscopoLocal.update(dicionarioAux)
-            #ha recursao
+                dicionarioVariaveisEscopo.update(dicionarioAux)
             if p[8] != None:
-                dicionarioVariaveisEscopoLocal.update(p[8])
+                dicionarioVariaveisEscopo = p[8]
         
-        if p[1] in dicionarioVariaveisEscopoLocal or flagRepetido == True:
+        if p[1] in dicionarioVariaveisEscopo or flagRepetido == True:
             print("Erro na linha:" + str(p.lineno(2)) + " variavel: " + str(p[1]) + " ja declarada")
             exit()
         else:
-            dicionarioVariaveisEscopoLocal[str(p[2])] = aux
-        
-        p[0]= dicionarioVariaveisEscopoLocal
-    
+            dicionarioVariaveisEscopo[str(p[2])] = aux
+        p[0]= dicionarioVariaveisEscopo
     else:
         p[0]= None
 
@@ -419,11 +372,6 @@ def p_listacomando(p):
     listacomando : comando listacomando
     """
 
-    if len(p) > 1:
-       if len(p) <= 2:
-           p[0] = p[1]
-        #else: 
-
 def p_comando(p):
     """
     comando : PONTOEVIRGULA
@@ -438,39 +386,14 @@ def p_comando(p):
     comando : ENQUANTO ABREPARENTESES expr FECHAPARENTESES EXECUTE  comando
     comando : bloco
     """
-    global EscopoAtual
-    #aux = None
-    if len(p) > 1:
-        
-        #retorna expressao
-        if len(p) == 3 and p[1] != '\n':
-            p[0] = p[1]
 
+    if len(p) > 1:
+        aux = Classes.Comando()
+        if p[1] == ";":
+            aux.adicionaElementoLadoDireito(";")
         
-        #condicao if sem senao
-        if len(p) == 7:
-            #fnd da condicional
-            if (type(p[3]) is int and p[3] != 0) or (type(p[3])== bool and p[3] == True):
-                #comando e verdadeiro
-                #print(p[6])
-                p[0] = p[6]    
-        #condicao if com senao
-        if len(p) == 9:
-            #fnd da condicional
-            if (type(p[3]) is int and p[3] != 0) or (type(p[3])== bool and p[3] == True):
-                #comando e verdadeiro
-                p[0] = p[6] 
-            #comando falso atribui senao
-            else:
-                p[0] = p[8]
-        #destruicao bloco comando: bloco
-        #print(p[1])
-        if len(p) == 2 and p[1] != ";":
-            ##aux = EscopoAtual
-            #excluindo escopo ja trabalhado em bloco
-            
-            EscopoAtual = deepcopy(EscopoAtual.getPai())   
-            p[0] = p[1]
+        
+
 
 
 
@@ -490,10 +413,7 @@ def p_assignexpr(p):
 
     if len(p) > 1:
         aux = p[1]
-        if len(p) >= 4:
-            aux2 = p[3]
-            #print("OOII")
-            #print(aux2)
+        aux2 = p[3]
         if len(p) <= 2:
             p[0] = p[1]
         elif p[2] == "=":
@@ -501,35 +421,28 @@ def p_assignexpr(p):
                 print("Erro: Nao e possivel realizar a atribuicao, tipos nao compativeis, linha: " + str(p.lineno(p[1])))
                 exit()
             
-            elif type(aux2) is int: 
+            elif type(aux2) == int and aux.getTipo() == 'int':
                 #atribuicao para uma variavel simples
                 if type(aux) == Classes.NoArvoreVariaveis:
-                    if aux.getTipo() == 'int':
-                        aux.setValor(aux2)
+                    aux.setValor(aux2)
                 #atribuicao para um elemento do vetor
                 elif type(aux) == Classes.NoArvoreVetores:
-                   if aux.getTipo() == 'int':
-                        aux.setValor(aux2)
+                   aux.setValor(aux2)
                 p[1] = aux
             
-            elif type(aux2) is str: 
+            elif type(aux2) == str and aux.getTipo() == 'car':
                 #atribuicao para uma variavel simples
                 if type(aux) == Classes.NoArvoreVariaveis:
-                    if aux.getTipo() == 'car':
-                        aux.setValor(aux2)
+                    aux.setValor(aux2)
                 #atribuicao para um elemento do vetor
                 elif type(aux) == Classes.NoArvoreVetores:
-                    if aux.getTipo() == 'car':
-                        aux.setValor(aux2)
-                
+                   aux.setValor(aux2)
                 p[1] = aux
             
             else:
-                #print("Valor p[1]")
-                #print(p[1])
-                print("Erro: Nao e possivel realizar a atribuicao, tipos nao compativeis, linha: " + str(p.lineno(1)))
+                print("Erro: Nao e possivel realizar a atribuicao, tipos nao compativeis, linha: " + str(p.lineno(p[1])))
                 exit()
-            p[0] = p[1]
+
 
                 
 
@@ -543,7 +456,7 @@ def p_condexpr(p):
         if len(p) <= 2:
             p[0] = p[1]
         elif len(p) > 2:
-            if type(p[1]) is int and type(p[3]) is int and type(p[5]) is int:
+            if type(p[1]) == int and type(p[3]) == int and type(p[5]) == int:
                 if p[1] == 0 and p[3] == 0 and p[5] == 0:
                     p[0] = False if False else False
 
@@ -569,7 +482,7 @@ def p_condexpr(p):
                     p[0] = True if True else True
 
 
-            elif type(p[1]) is int and type(p[3]) is int and type(p[5]) == bool:
+            elif type(p[1]) == int and type(p[3]) == int and type(p[5]) == bool:
                 
                 if p[1] == 0 and p[3] == 0:
                     p[0] = False if False else p[5]
@@ -584,7 +497,7 @@ def p_condexpr(p):
                     p[0] = True if False else p[5]
                 
 
-            elif type(p[1]) is int and type(p[3]) == bool and type(p[5]) is int:
+            elif type(p[1]) == int and type(p[3]) == bool and type(p[5]) == int:
                 if p[1] == 0 and p[5] == 0:
                     p[0] = p[3] if False else False
 
@@ -597,7 +510,7 @@ def p_condexpr(p):
                 elif  p[1] == 0 and p[5] != 0:
                     p[0] = p[3] if False else True
             
-            elif type(p[1]) == bool and type(p[3]) is int and type(p[5]) is int:
+            elif type(p[1]) == bool and type(p[3]) == int and type(p[5]) == int:
                 if p[3] == 0 and p[5] == 0:
                     p[0] = False if p[1] else False
 
@@ -611,21 +524,21 @@ def p_condexpr(p):
                     p[0] = False if p[1] else True
 
             
-            elif type(p[1]) is int and type(p[3]) == bool and type(p[5]) == bool:
+            elif type(p[1]) == int and type(p[3]) == bool and type(p[5]) == bool:
                 if p[1] == 0:
                     p[0] = p[3] if False else p[5]
                 
                 else:
                     p[0] = p[3] if True else p[5]
 
-            elif type(p[1]) == bool and type(p[3]) == bool and type(p[5]) is int:
+            elif type(p[1]) == bool and type(p[3]) == bool and type(p[5]) == int:
                 if p[5] == 0:
                     p[0] = p[3] if p[1] else False
                 
                 else:
                     p[0] = p[3] if [1] else True
 
-            elif type(p[1]) == bool and type(p[3]) is int and type(p[5]) == bool:
+            elif type(p[1]) == bool and type(p[3]) == int and type(p[5]) == bool:
                 if p[3] == 0:
                     p[0] = False if p[1] else p[5]
                 
@@ -651,20 +564,20 @@ def p_orexpr(p):
     if len(p) > 1:
 
         #retorno de expressao logica    
-        if len(p) > 2 and p[2] == 'ou':
-            if type(p[1]) is int and type(p[3]) == bool:
+        if p[2] == 'ou':
+            if type(p[1]) == int and type(p[3]) == bool:
                 if p[1] == 0:
                     p[0] = False or p[3]
                 else:
                     p[0] = True or p[3]
             
-            elif type(p[1]) == bool and type(p[3]) is int:
+            elif type(p[1]) == bool and type(p[3]) == int:
                 if p[3] == 0:
                     p[0] = p[1] or False
                 else:
                     p[0] = p[1] or True
             
-            elif type(p[1]) is int and type(p[3]) is int:
+            elif type(p[1]) == int and type(p[3]) == int:
                 if p[1] == 0 and p[3] == 0:
                     p[0] = False or False
 
@@ -698,9 +611,9 @@ def p_andexpr(p):
     #global Escopo
     if len(p) > 1:
         #operacao logica e
-        if len(p) > 2 and p[2] == 'e':
+        if p[2] == 'e':
             #lado esquero e inteiro e direito bool
-            if type(p[1]) is int and type(p[3]) == bool:
+            if type(p[1]) == int and type(p[3]) == bool:
                 #valor int diferente 0 e true
                 if p[1] != 0:
                     p[0] = True and p[3]
@@ -708,14 +621,14 @@ def p_andexpr(p):
                 else:
                     p[0] = False and p[3]
             
-            elif type(p[1]) == bool and type(p[3]) is int:
+            elif type(p[1]) == bool and type(p[3]) == int:
                 if p[3] != 0:
                     p[0] = p[1] and True
                 #valor int igual O e false
                 else:
                     p[0] = p[1] and False
             
-            elif type(p[1]) is int and type(p[3]) is int:
+            elif type(p[1]) == int and type(p[3]) == int:
                 if p[1] == 0 and p[3] == 0:
                     p[0] = False and False
                 
@@ -747,17 +660,17 @@ def p_eqexpr(p):
 
     if len(p) > 1:
         #comparacao de igualdade
-        if len(p) > 2 and  p[2] == "==":
+        if p[2] == "==":
             #fnc para os tipos aceitos na comparacao dois int, dois bool ou dois caractere
-            if (type(p[1]) is int and type(p[3]) is int) or (type(p[1]) == bool and type(p[2]) == bool) or (type(p[1]) is str and type(p[2]) is str):
+            if (type(p[1]) == int and type(p[3]) == int) or (type(p[1]) == bool and type(p[2]) == bool) or (type(p[1]) == str and type(p[2]) == str):
                 p[0] = p[1] == p[2]
             else:
                 print("Erro: Operacao nao e possivel de ser realizada, tipos nao compativeis, linha: " + str(p.lineno(p[1])))
                 exit()
         #comparacao de diferenca
-        elif len(p) > 2 and  p[2] == "!=":
+        elif p[2] == "!=":
             #fnc para os tipos aceitos na comparacao dois int, dois bool ou dois caractere
-            if (type(p[1]) is int and type(p[3]) is int) or (type(p[1]) == bool and type(p[2]) == bool) or (type(p[1]) is str and type(p[2]) is str):
+            if (type(p[1]) == int and type(p[3]) == int) or (type(p[1]) == bool and type(p[2]) == bool) or (type(p[1]) == str and type(p[2]) == str):
                 p[0] = p[1] != p[2]
             else:
                 print("Erro: Operacao nao e possivel de ser realizada, tipos nao compativeis, linha: " + str(p.lineno(p[1])))
@@ -777,29 +690,29 @@ def p_desigexpr(p):
     desigexpr : addexpr
     """
     if len(p) > 1:
-        if len(p) > 2 and p[2] == "<":
-            if type(p[1]) is int and type(p[3]) is int:
+        if p[2] == "<":
+            if type(p[1]) == int and type(p[3]) == int:
                 p[0] = p[1] < p[3] 
             else:
                 print("Erro: Operacao nao e possivel de ser realizada, tipos nao compativeis, linha: " + str(p.lineno(p[1])))
                 exit()
 
-        elif len(p) > 2 and p[2] == ">":
-            if type(p[1]) is int and type(p[3]) is int:
+        elif p[2] == ">":
+            if type(p[1]) == int and type(p[3]) == int:
                 p[0] = p[1] > p[3]
             else:
                 print("Erro: Operacao nao e possivel de ser realizada, tipos nao compativeis, linha: " + str(p.lineno(p[1])))
                 exit()
 
-        elif len(p) > 2 and  p[2] == ">=":
-            if type(p[1]) is int and type(p[3]) is int:
+        elif p[2] == ">=":
+            if type(p[1]) == int and type(p[3]) == int:
                 p[0] = p[1] >= p[3]
             else:
                 print("Erro: Operacao nao e possivel de ser realizada, tipos nao compativeis, linha: " + str(p.lineno(p[1])))
                 exit()
 
-        elif len(p) > 2 and  p[2] == "<=":
-            if type(p[1]) is int and type(p[2]) is int:
+        elif p[2] == "<=":
+            if type(p[1]) == int and type(p[2]) == int:
                 p[0] = p[1] <= p[3]
         else:
             p[0] = p[1]
@@ -813,27 +726,22 @@ def p_addexpr(p):
     """
 
     if len(p) > 1:
-        if len(p) > 2 and p[2] == "+":
-            #print("valor p[1]")
-            #print(p[1])
-            #print("\nvalor p[3]")
-            #print(p[3])
-            if (type(p[1]) is int  and type(p[3]) is int) or (p[1].getTipo == 'int' and p[3].getTipo == 'int'):
+        if p[2] == "+":
+            if type(p[1]) == int  and type(p[3]) == int:
                 p[0] = int(p[1] + p[3])
             ##elif p[1] == r"\'.\'" and p[3] == r"\'.\'":
             ##    p[0] = p[1] + p[3]
             else:
-                print("Erro: Operacao nao e possivel de ser realizada, tipos nao compativeis, linha: " + str(p.lineno(1)))
+                print("Erro: Operacao nao e possivel de ser realizada, tipos nao compativeis, linha: " + str(p.lineno(p[1])))
                 exit()
-        elif len(p) > 2 and p[2] == "-":
-            if type(p[1]) is int and type(p[3]) is int:
+        elif p[2] == "-":
+            if type(p[1]) == int and type(p[3]) == int:
                 p[0] = int(p[1] - p[3])
             else:
-                print("Erro: Operacao nao e possivel de ser realizada, tipos nao compativeis, linha: " + str(p.lineno(1)))
+                print("Erro: Operacao nao e possivel de ser realizada, tipos nao compativeis, linha: " + str(p.lineno(p[1])))
                 exit()
         else:
             p[0] = p[1]
-
 def p_mulexpr(p):
     """
     mulexpr : mulexpr OPERADORVEZES unexpr
@@ -844,15 +752,15 @@ def p_mulexpr(p):
 
     if len(p) > 1:
         #se a operacao for um produto
-        if len(p) > 2 and p[2] == "*":
-            if type(p[1]) is int and type(p[3]) is int:
+        if p[2] == "*":
+            if type(p[1]) == int and type(p[3]) == int:
                 p[0] = int(p[1] * p[3])
             else:
                 print("Erro: nao e possivel realizar o produto, ha divergencias de tipo, linha: " + p.lineno(1))
                 exit()
         #se a operacao for uma divisao
-        elif len(p) > 2 and p[2] == "/":
-            if type(p[1]) is int and type(p[3]) is int:
+        elif p[2] == "/":
+            if type(p[1]) == int and type(p[3]) == int:
                 if p[3] != 0:
                     p[0] = int(p[0] / p[3])
                 else:
@@ -862,8 +770,8 @@ def p_mulexpr(p):
                 print("Erro: nao e possivel realizar a divisao, ha divergencias de tipo, linha: " + p.lineno(1))
                 exit()
         #se a operacao for um resto de divisao
-        elif len(p) > 2 and p[2] == "%":
-            if type(p[1]) is int and type(p[2]) is int:
+        elif p[2] == "%":
+            if type(p[1]) == int and type(p[2]) == int:
                 if p[3] != 0:
                     p[0] = int(p[1] % p[3])
                 else:
@@ -874,7 +782,7 @@ def p_mulexpr(p):
                 exit()
         #a expressao recebe apenas um elemento
         else:
-            p[0] = p[1]
+            p[0] = [1]
 
 def p_unexpr(p):
     """
@@ -907,14 +815,10 @@ def p_lvalueexpr(p):
     global Escopo
     if len(p) > 1:
         
-        global EscopoAtual
-        global EscopoGlobal
         flagnaoEstaEscopo = False
         #aux = None
         #a atribuicao e para uma variavel simples
         if len(p) <= 2:
-            
-            '''
             for valor in Escopo:
                 if p[1] not in valor:
                     #print("Operacao invalida, na linha: " +  str(p.lineno(1)) + ", variavel: " + str(p[1]) + " nao declarada")
@@ -923,40 +827,6 @@ def p_lvalueexpr(p):
                 else:
                     flagnaoEstaEscopo = False
                     #aux= valor  
-            '''
-
-            #aux = deepcopy(EscopoAtual)
-            #teste = None
-            aux = deepcopy(EscopoGlobal)
-            '''
-            while(aux!= None):
-                print(aux)
-                aux = aux.getFilho()
-            '''
-
-            #print(EscopoAtual.getEscopo())
-            #print(EscopoAtual.getPai().getEscopo())
-            '''
-            while(aux != None):
-                
-                teste = aux.getEscopo()
-                print("Valor teste")
-                print(teste)
-                if teste != None:
-                    if teste['listadeclvar'] != None:
-                        if p[1] not in teste['listadeclvar']:
-                            flagnaoEstaEscopo = True
-                        else:
-                            flagnaoEstaEscopo = False
-                else:
-                    #flagnaoEstaEscopo = True
-                    aux = aux.getPai()
-                    #print(aux)
-                    
-            ''' 
-            #print("Valor flag")
-            #print(flagnaoEstaEscopo)
-
 
             if flagnaoEstaEscopo == True:
                 print("Operacao invalida, na linha: " +  str(p.lineno(1)) + ", variavel: " + str(p[1]) + " nao declarada")
@@ -1007,10 +877,10 @@ def p_primexpr(p):
     primexpr : ABREPARENTESES expr FECHAPARENTESES
     """
     global Escopo
-    global EscopoAtual
+
     if len(p) > 1:
         flagnaoEstaEscopo = False
-        aux = None
+        
         #falta fazer
         #if p[2] == "(" and p[4] == ")":
 
@@ -1019,27 +889,7 @@ def p_primexpr(p):
         #elif p[2] == "(" and p[3] == ")":
 
         #se p[1] e um elemento de um vetor
-        #print(len(p))
-        if len(p) > 2 and p[2] == "[":
-            aux = deepcopy(EscopoAtual)
-            teste = None
-            '''
-            while(aux != None):
-                teste = aux.getEscopo()
-                if teste['listadeclvar'] != None:
-                    if p[1] not in teste['listadeclvar']:
-                        flagnaoEstaEscopo = True
-                    else:
-                        flagnaoEstaEscopo = False
-                else:
-                    aux = deepcopy(aux.getPai())
-                
-                aux = None
-            '''
-            #if flagnaoEstaEscopo == True:
-
-
-            '''
+        if p[2] == "[":
             for valor in Escopo:
                 if p[1] not in valor:
                     #print("Operacao invalida, na linha: " +  str(p.lineno(1)) + ", variavel: " + str(p[1]) + " nao declarada")
@@ -1047,9 +897,7 @@ def p_primexpr(p):
                     flagnaoEstaEscopo = True
                 else:
                     flagnaoEstaEscopo = False
-                    #aux= valor
-            '''
-
+                    #aux= valor  
             #nao esta em nenhum escopo
             if flagnaoEstaEscopo == True:
                 print("Operacao invalida, na linha: " +  str(p.lineno(1)) + ", variavel: " + str(p[1]) + " nao declarada")
@@ -1071,7 +919,7 @@ def p_primexpr(p):
                 exit()
             
         #se p[1] e um identificador simples
-        elif len(p) <= 2 and not(type(p[1]) is str) and not(type(p[1]) is int):
+        elif p[1]!= str and p[1] != int and  p[2] != "(" and p[2] != "[":
             for valor in Escopo:
                 if p[1] not in valor:
                     #print("Operacao invalida, na linha: " +  str(p.lineno(1)) + ", variavel: " + str(p[1]) + " nao declarada")
@@ -1084,19 +932,14 @@ def p_primexpr(p):
             if flagnaoEstaEscopo == True:
                 print("Operacao invalida, na linha: " +  str(p.lineno(1)) + ", variavel: " + str(p[1]) + " nao declarada")
                 exit()        
-            print((type(p[1]) is int))
-            print("poo")
-            print(p[1])
-            print(type(p[1]))
-            p[0] =  p[1].getValor()
-
             
+            p[0] =  p[1].getValor()
         #se p[1] e um caractere
-        elif type(p[1]) is  str:
+        elif type(p[1]) ==  str:
             #p[1].setTipo('car')
             p[0] = p[1]
         #se p[1] e um inteiro constante
-        elif type(p[1]) is int:
+        elif type(p[1]) == int:
             #p[1].setTipo('int')
             p[0] = p[1]
         # p[1] e uma expressao entre parenteses
@@ -1108,12 +951,6 @@ def p_listexpr(p):
     listexpr : assignexpr
     listexpr : listexpr VIRGULA assignexpr
     """
-
-    if len(p) > 1:
-        if len(p) <= 2:
-            p[0] = p[1]
-        #else:
-
 
 def p_error(p):
     print("ERRO, token " + p.type + " nao esperado na linha " + str(p.lineno))

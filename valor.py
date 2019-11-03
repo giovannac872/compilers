@@ -1,19 +1,12 @@
 import classes as Classes
+from copy import deepcopy
 
+aux = 90
+while(aux!=None):
+    print("1")
+    aux = None
 
-objeto = Classes.NoArvoreVetores()
-objeto1 = Classes.NoArvoreVariaveis()
+a = 'aa'
 
-print(type(objeto) == Classes.NoArvoreVetores)
-print("\n")
-print(type(1))
-print("\n")
-print(type(objeto1))
-'''
-a = True
-b = False
-#a = True
-a =1
-
-print(type(a) == 'int')
-'''
+print(not(type(a)  is  str))
+print(type(a))

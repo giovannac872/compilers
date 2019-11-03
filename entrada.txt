@@ -1,8 +1,15 @@
-int n, x[10], v;
+int y[2];
+int x;
 
-int valor(int x[], int a[]){
-
+int func(int a, int  b){
+    int c;
+    se (2+2) entao {
+        c = 2;
+    }
+    
 }
+//int a;
+
 programa{
 
 }

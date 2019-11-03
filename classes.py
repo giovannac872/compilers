@@ -1,3 +1,36 @@
+
+
+class ArvoreEscopo(object):
+    Escopo = {}
+    pai = None
+    filho = []
+
+    def __init__(self, escopo, pai, filho):
+        self.Escopo = escopo
+        self.pai = pai
+        #self.filho = filho
+
+    def adicionaFilho(self, filho):
+        self.filho.append(filho)
+    
+    def adicionaPai(self, pai):
+        self.pai = pai
+    
+    def getPai(self):
+        return self.pai
+    
+    def getEscopo(self):
+        return self.Escopo
+    
+    def setEscopo(self, escopo):
+        self.Escopo = escopo
+    
+    def getFilho(self):
+        return self.filho
+
+    
+
+
 class NoArvoreVetores(object):
     
     def __init__(self, valor = None, tipo= None):
@@ -50,8 +83,8 @@ class NoArvoreVariaveis(object):
 
     def iniciaVetor(self):
         if self.eVetor == True:
-            for iterador in range(len(self.tamanhoVetor)):
-                self.valor[iterador] = NoArvoreVetores(self.tipo)
+            for iterador in range(self.tamanhoVetor):
+                self.valor.insert(iterador, NoArvoreVetores(self.tipo))
 
     def getValor(self, posicao = None):
         if self.eVetor == False:
@@ -89,10 +122,10 @@ class NoArvoreVariaveis(object):
     
 class NoArvoreFuncaoAssinatura(object):
     #lista parametros e uma lista de objetos NoArvoreVariaveis
-    def __init__(self, tipoRetornoFuncao = None, nomeFuncao = None,  listaParametros = None):
+    def __init__(self, tipoRetornoFuncao = None, listaParametros = None):
         #self.nome = nome
         self.tipoRetornoFuncao = tipoRetornoFuncao 
-        self.nomeFuncao = nomeFuncao
+        #self.nomeFuncao = nomeFuncao
         self.listaParametros = listaParametros
     
     #parametro e um objeto do tipo NoArvoreVariaveis
@@ -105,13 +138,23 @@ class NoArvoreFuncaoAssinatura(object):
 
 
 class Escopo(object):
+    
+    def __init__(self, nomeEscopo = None, variaveisEscopo = None):
+        self.nomeEscopo = nomeEscopo
+        self.variaveisEscopo = variaveisEscopo
+    
+
+    '''
     Escopo = {}
 
     def __init__(self, escopo = None):
-        self.Escopo = None
-    
-
+        self.Escopo = escopo
+        
     def criaEscopo(self, nomeEscopo, variaveisEscopo):
+        self.Escopo[str(nomeEscopo)] = variaveisEscopo
+
+    def removeEscopo(self, nomeEscopo):
+    '''
         
 
 '''
